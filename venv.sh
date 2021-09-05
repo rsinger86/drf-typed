@@ -1,0 +1,1 @@
+source /home/robertsinger/Desktop/virtualenvs/drf-typed/bin/activate

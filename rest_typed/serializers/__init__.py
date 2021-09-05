@@ -1,3 +1,0 @@
-from rest_typed_views.serializers.char_field import CharField
-from rest_typed_views.serializers.serializers import Serializer
-from rest_typed_views.serializers.serializers import ModelSerializer
