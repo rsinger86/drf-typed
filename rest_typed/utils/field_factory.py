@@ -1,5 +1,4 @@
 from datetime import date, datetime, time, timedelta
-from decimal import Decimal
 from typing import Any, Type, Union
 from uuid import UUID
 
@@ -18,6 +17,10 @@ class ParsedType(object):
 
     @property
     def is_nullable(self) -> bool:
+        """
+        If the type is a union, and one is None,
+        then it's nullable
+        """
         if get_origin(self._hint) is Union:
             for union_hint in get_args(self._hint):
                 if union_hint is type(None):
@@ -27,6 +30,10 @@ class ParsedType(object):
 
     @property
     def is_list(self) -> bool:
+        """
+        Type is `list` or `List[T]`
+        Or it's a nullable list: `Optional[list]` or `Optional[List[T]]`
+        """
         if self._hint is list or get_origin(self._hint) is list:
             return True
         elif get_origin(self._hint) is Union:
@@ -71,7 +78,7 @@ FIELD_MAPPING = {
     bool: serializers.BooleanField,
     date: serializers.DateField,
     datetime: serializers.DateTimeField,
-    Decimal: serializers.DecimalField,
+    # Decimal: serializers.DecimalField,
     float: serializers.FloatField,
     int: serializers.IntegerField,
     str: serializers.CharField,

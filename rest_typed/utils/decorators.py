@@ -5,7 +5,7 @@ P = ParamSpec("P")
 T = TypeVar("T")
 
 
-def deserialized_type(deserialized_type: Type[T]):
+def instance_type(instance_type: Type[T]):
     def decorator(Cls: Callable[P, Any]) -> Callable[P, T]:
         return Cls
 

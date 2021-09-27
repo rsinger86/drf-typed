@@ -1,12 +1,14 @@
+from rest_framework.fields import empty
 from rest_framework import serializers
+from typing_extensions import get_type_hints
+
+from rest_typed.utils import field_factory
 
 
-class TypedSerializerMetaClass(serializers.SerializerMetaclass):
+class TSerializerMetaClass(serializers.SerializerMetaclass):
     def __new__(cls, clsname, bases, attrs):
-        from rest_typed.utils import field_factory
-        from typing_extensions import get_type_hints
 
-        newclass = super(TypedSerializerMetaClass, cls).__new__(cls, clsname, bases, attrs)
+        newclass = super(TSerializerMetaClass, cls).__new__(cls, clsname, bases, attrs)
         attr_name_to_type_hint = get_type_hints(newclass)
         declared_fields: dict = getattr(newclass, "_declared_fields")
 
@@ -19,12 +21,14 @@ class TypedSerializerMetaClass(serializers.SerializerMetaclass):
                 )
 
                 declared_fields[attr_name] = field_factory.construct(type_hint, default_value)
-                delattr(newclass, attr_name)
+
+                if hasattr(newclass, attr_name):
+                    delattr(newclass, attr_name)
 
         return newclass
 
 
-class TypedSerializerAttrFieldsMixin(object):
+class TSerializerAttrFieldsMixin(object):
     def __getattr__(self, name: str):
         if name not in self.fields.keys():
             raise AttributeError(f"{name} does not exist.")
@@ -41,17 +45,17 @@ class TypedSerializerAttrFieldsMixin(object):
             raise AttributeError(f"{name} does not exist.")
 
 
-class TypedModelSerializer(
-    TypedSerializerAttrFieldsMixin,
+class TModelSerializer(
+    TSerializerAttrFieldsMixin,
     serializers.ModelSerializer,
-    metaclass=TypedSerializerMetaClass,
+    metaclass=TSerializerMetaClass,
 ):
     pass
 
 
-class TypedSerializer(
-    TypedSerializerAttrFieldsMixin,
+class TSerializer(
+    TSerializerAttrFieldsMixin,
     serializers.Serializer,
-    metaclass=TypedSerializerMetaClass,
+    metaclass=TSerializerMetaClass,
 ):
     pass
