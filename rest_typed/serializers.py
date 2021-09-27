@@ -1,5 +1,5 @@
-from rest_framework.fields import empty
 from rest_framework import serializers
+from rest_framework.fields import empty
 from typing_extensions import get_type_hints
 
 from rest_typed.utils import field_factory

@@ -1,5 +1,8 @@
 from datetime import date, datetime, time, timedelta
-from typing import Any, Type, Union
+from enum import Enum
+from rest_framework.fields import Field
+from rest_typed.utils.decorators import T
+from typing import Any, List, Type, Union
 from uuid import UUID
 
 from rest_framework import serializers
@@ -44,15 +47,28 @@ class ParsedType(object):
         return False
 
     @property
+    def enum_values(self) -> List[Any]:
+        if not self.type is Enum:
+            return []
+
+        return [_.value for _ in self._hint]
+
+    @property
     def type(self) -> Any:
+        t = self._hint
+
         if self.is_nullable:
             for union_hint in get_args(self._hint):
                 if union_hint is not type(None):
-                    return get_origin(union_hint) or union_hint
+                    t = get_origin(union_hint) or union_hint
+                    break
         elif self.is_list:
-            return list
-        else:
-            return self._hint
+            t = list
+
+        if issubclass(t, Enum):
+            t = Enum
+
+        return t
 
     @property
     def inner_type(self) -> Union["ParsedType", Type[empty]]:
@@ -85,6 +101,7 @@ FIELD_MAPPING = {
     time: serializers.TimeField,
     timedelta: serializers.DurationField,
     UUID: serializers.UUIDField,
+    Enum: serializers.ChoiceField,
 }
 
 
@@ -99,4 +116,8 @@ def construct(hint: Any, default_value: Any = empty):
 
     if parsed.type in FIELD_MAPPING:
         FieldClass = FIELD_MAPPING[parsed.type]
+
+        if FieldClass is serializers.ChoiceField:
+            kwargs["choices"] = parsed.enum_values
+
         return FieldClass(**kwargs)

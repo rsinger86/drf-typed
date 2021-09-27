@@ -1,13 +1,14 @@
-from typing import Any, Dict, List, Optional, Union
+from collections import OrderedDict
+from datetime import date, datetime, time, timedelta
+from enum import Enum
+from typing import Optional
 from uuid import UUID
 
-from django.db.models import Model
+from pytz import UTC
 from rest_framework import serializers
 from rest_framework.test import APITestCase
 from rest_typed.serializers import TModelSerializer, TSerializer
 from test_project.testapp.models import Movie
-from datetime import date, datetime, time, timedelta
-from pytz import UTC
 
 
 class SerializerTests(APITestCase):
@@ -95,7 +96,7 @@ class SerializerTests(APITestCase):
         self.assertEqual(movie.length, timedelta(days=1, seconds=8460))
         self.assertTrue(isinstance(movie.fields["length"], serializers.DurationField))
 
-    def test_add_uui_field_from_type_hint(self):
+    def test_add_uuid_field_from_type_hint(self):
         class MovieSerializer(TSerializer):
             id: UUID
 
@@ -104,3 +105,22 @@ class SerializerTests(APITestCase):
         movie.is_valid(raise_exception=True)
         self.assertEqual(str(movie.id), "de305d54-75b4-431b-adb2-eb6b9e546013")
         self.assertTrue(isinstance(movie.fields["id"], serializers.UUIDField))
+
+    def test_add_choice_field_from_type_hint(self):
+        class Genre(Enum):
+            comedy = "comedy"
+            drama = "drama"
+
+        class MovieSerializer(TSerializer):
+            genre: Genre
+
+        movie = MovieSerializer(data={"genre": "comedy"})
+
+        movie.is_valid(raise_exception=True)
+        self.assertEqual(movie.genre, "comedy")
+
+        self.assertTrue(isinstance(movie.fields["genre"], serializers.ChoiceField))
+
+        self.assertEqual(
+            movie.fields["genre"].choices, OrderedDict([("comedy", "comedy"), ("drama", "drama")])
+        )
