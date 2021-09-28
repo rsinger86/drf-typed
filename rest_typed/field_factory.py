@@ -1,7 +1,5 @@
 from datetime import date, datetime, time, timedelta
 from enum import Enum
-from rest_framework.fields import Field
-from rest_typed.utils.decorators import T
 from typing import Any, List, Type, Union
 from uuid import UUID
 
@@ -19,7 +17,7 @@ class ParsedType(object):
         self._default = default
 
     @property
-    def is_nullable(self) -> bool:
+    def is_optional(self) -> bool:
         """
         If the type is a union, and one is None,
         then it's nullable
@@ -57,7 +55,7 @@ class ParsedType(object):
     def type(self) -> Any:
         t = self._hint
 
-        if self.is_nullable:
+        if self.is_optional:
             for union_hint in get_args(self._hint):
                 if union_hint is not type(None):
                     t = get_origin(union_hint) or union_hint
@@ -75,7 +73,7 @@ class ParsedType(object):
         if not self.is_list:
             return empty
 
-        if self.is_nullable:
+        if self.is_optional:
             for union_hint in get_args(self._hint):
                 if union_hint is type(None):
                     continue
@@ -107,7 +105,7 @@ FIELD_MAPPING = {
 
 def construct(hint: Any, default_value: Any = empty):
     parsed = ParsedType(hint, default_value)
-    kwargs = {"allow_null": parsed.is_nullable}
+    kwargs = {"allow_null": parsed.is_optional}
 
     if default_value is not empty:
         kwargs["default"] = default_value
