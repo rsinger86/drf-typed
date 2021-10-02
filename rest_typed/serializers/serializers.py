@@ -2,7 +2,7 @@ from rest_framework import serializers
 from rest_framework.fields import empty
 from typing_extensions import get_type_hints
 
-from rest_typed import field_factory
+from rest_typed.serializers import field_factory
 
 
 class TSerializerMetaClass(serializers.SerializerMetaclass):

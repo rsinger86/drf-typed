@@ -3,8 +3,8 @@ from unittest.mock import MagicMock
 from rest_framework.fields import empty
 from rest_framework.test import APITestCase
 
-from rest_typed import ParamSettings
-from rest_typed.params import BodyParam
+from rest_typed.views import ParamSettings
+from rest_typed.views.params import BodyParam
 
 
 class ParamsTests(APITestCase):

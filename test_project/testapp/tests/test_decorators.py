@@ -5,14 +5,9 @@ from pydantic import BaseModel
 from rest_framework.exceptions import ValidationError
 from rest_framework.request import Request
 from rest_framework.test import APITestCase
-
-from rest_typed import Body, CurrentUser, ParamSettings, Path, Query
-from rest_typed.decorators import (
-    build_explicit_param,
-    get_view_param,
-    transform_view_params,
-)
-from rest_typed.params import (
+from rest_typed.views import Body, CurrentUser, ParamSettings, Path, Query
+from rest_typed.views.decorators import build_explicit_param, get_view_param, transform_view_params
+from rest_typed.views.params import (
     BodyParam,
     CurrentUserParam,
     PassThruParam,
@@ -50,7 +45,7 @@ class DecoratorTests(APITestCase):
         self.assertTrue("A valid integer is required" in str(context.exception))
         self.assertTrue("This field is required" in str(context.exception))
 
-    @patch("rest_typed.decorators.build_explicit_param")
+    @patch("rest_typed.views.decorators.build_explicit_param")
     def test_get_view_param_if_explicit_settings(self, mock_build_explicit_param):
         def example_function(body: str = Body(source="name")):
             return

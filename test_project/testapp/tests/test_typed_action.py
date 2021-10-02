@@ -16,9 +16,7 @@ class TypedActionTests(APITestCase):
 
         self.assertEqual(response.status_code, 200)
 
-        self.assertEqual(
-            response.data, {"id": 1, "test_qp": "cats", "title": "My default title"}
-        )
+        self.assertEqual(response.data, {"id": 1, "test_qp": "cats", "title": "My default title"})
 
     def test_get_reviews_error(self):
         movie = Movie.objects.create(title="My movie", rating=5.0, genre="comedy")
@@ -30,9 +28,7 @@ class TypedActionTests(APITestCase):
     def test_create_actor_ok(self):
         url = reverse("movie-actors")
 
-        response = self.client.post(
-            url, {"id": 123, "name": "Tom Cruze"}, format="json"
-        )
+        response = self.client.post(url, {"id": 123, "name": "Tom Cruze"}, format="json")
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data, {"id": 123, "name": "Tom Cruze", "movies": []})
@@ -49,7 +45,7 @@ class TypedActionTests(APITestCase):
             {
                 "actor": [
                     {
-                        "loc": "('name',)",
+                        "loc": ["name"],
                         "msg": "field required",
                         "type": "value_error.missing",
                     }

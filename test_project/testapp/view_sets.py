@@ -5,7 +5,7 @@ from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from rest_typed import typed_action
+from rest_typed.views import typed_action
 from test_project.testapp.models import Movie
 from test_project.testapp.serializers import MovieSerializer
 

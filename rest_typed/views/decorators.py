@@ -6,9 +6,7 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.fields import empty
 from rest_framework.request import Request
 from rest_framework.views import APIView
-from typing_extensions import ParamSpec
-
-from rest_typed.utils import (
+from rest_typed.views.utils import (
     find_request,
     get_default_value,
     get_explicit_param_settings,
@@ -16,6 +14,7 @@ from rest_typed.utils import (
     is_implicit_body_param,
     is_implicit_request_param,
 )
+from typing_extensions import ParamSpec
 
 from .param_settings import ParamSettings
 from .params import BodyParam, CurrentUserParam, HeaderParam, PassThruParam, PathParam, QueryParam

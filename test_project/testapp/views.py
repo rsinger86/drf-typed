@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 from pydantic import BaseModel
 from rest_framework.response import Response
 
-from rest_typed import (
+from rest_typed.views import (
     Body,
     CurrentUser,
     Param,
@@ -37,27 +37,9 @@ class SuperUser(BaseModel):
     friends: List[int] = []
 
 
-class Booking(typesystem.Schema):
-    start_date = typesystem.Date()
-    end_date = typesystem.Date()
-    room = typesystem.Choice(
-        choices=[
-            ("double", "Double room"),
-            ("twin", "Twin room"),
-            ("single", "Single room"),
-        ]
-    )
-    include_breakfast = typesystem.Boolean(title="Include breakfast", default=False)
-
-
 @typed_api_view(["POST"])
 def create_user(user: SuperUser):
     return Response(dict(user))
-
-
-@typed_api_view(["POST"])
-def create_booking(booking: Booking = Body(source="_data.item")):
-    return Response(dict(booking))
 
 
 @typed_api_view(["GET"])

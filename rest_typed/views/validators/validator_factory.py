@@ -4,16 +4,15 @@ from typing import Any
 
 from rest_framework import serializers
 
-from rest_typed.param_settings import ParamSettings
-from rest_typed.utils import (
+from rest_typed.views.param_settings import ParamSettings
+from rest_typed.views.utils import (
     parse_complex_type,
     parse_enum_annotation,
     parse_list_annotation,
 )
-from rest_typed.validators import (
+from rest_typed.views.validators import (
     DefaultValidator,
     PydanticValidator,
-    TypeSystemValidator,
     MarshMallowValidator,
 )
 
@@ -161,9 +160,6 @@ class ValidatorFactory(object):
 
         if is_complex_type and package == "pydantic":
             return PydanticValidator(annotation)
-
-        if is_complex_type and package == "typesystem":
-            return TypeSystemValidator(annotation)
 
         if is_complex_type and package == "marshmallow":
             return MarshMallowValidator(annotation)

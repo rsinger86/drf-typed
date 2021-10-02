@@ -31,7 +31,7 @@ from django.db import models
 from django.forms import ImageField as DjangoImageField  # noqa: F401
 from rest_framework.serializers import BaseSerializer
 from rest_framework.validators import Validator
-from rest_typed.decorators import instance_type
+from rest_typed.views.decorators import instance_type
 from typing_extensions import Final
 
 class _Empty(Enum):
