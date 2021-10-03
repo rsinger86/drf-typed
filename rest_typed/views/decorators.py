@@ -1,5 +1,5 @@
 import inspect
-from typing import Any, Callable, Dict, List, Type, TypeVar
+from typing import Any, Dict, List
 
 from rest_framework.decorators import action, api_view
 from rest_framework.exceptions import ValidationError
@@ -14,20 +14,9 @@ from rest_typed.views.utils import (
     is_implicit_body_param,
     is_implicit_request_param,
 )
-from typing_extensions import ParamSpec
 
 from .param_settings import ParamSettings
 from .params import BodyParam, CurrentUserParam, HeaderParam, PassThruParam, PathParam, QueryParam
-
-P = ParamSpec("P")
-T = TypeVar("T")
-
-
-def instance_type(instance_type: Type[T]):
-    def decorator(Cls: Callable[P, Any]) -> Callable[P, T]:
-        return Cls
-
-    return decorator
 
 
 def wraps_drf(view):
