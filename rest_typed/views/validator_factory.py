@@ -3,18 +3,9 @@ from decimal import Decimal
 from typing import Any
 
 from rest_framework import serializers
-
 from rest_typed.views.param_settings import ParamSettings
-from rest_typed.views.utils import (
-    parse_complex_type,
-    parse_enum_annotation,
-    parse_list_annotation,
-)
-from rest_typed.views.validators import (
-    DefaultValidator,
-    PydanticValidator,
-    MarshMallowValidator,
-)
+from rest_typed.views.utils import parse_complex_type, parse_enum_annotation, parse_list_annotation
+from rest_typed.views.validators import DefaultValidator, MarshMallowValidator, PydanticValidator
 
 
 class ValidatorFactory(object):

@@ -6,7 +6,7 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.request import Request
 from rest_framework.test import APITestCase
 from rest_typed.views import Body, CurrentUser, ParamSettings, Path, Query
-from rest_typed.views.decorators import build_explicit_param, get_view_param, transform_view_params
+from rest_typed.views.decorators import transform_view_params
 from rest_typed.views.params import (
     BodyParam,
     CurrentUserParam,

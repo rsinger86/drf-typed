@@ -7,7 +7,8 @@ from rest_framework.request import Request
 
 from rest_typed.views.param_settings import ParamSettings
 from rest_typed.views.utils import get_nested_value, parse_list_annotation
-from rest_typed.views.validators import CurrentUserValidator, ValidatorFactory
+from rest_typed.views.validators import CurrentUserValidator
+from rest_typed.views.validator_factory import ValidatorFactory
 
 
 class Param(object):

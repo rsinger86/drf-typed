@@ -3,20 +3,11 @@ from typing import Any, Dict, List
 
 from rest_framework.decorators import action, api_view
 from rest_framework.exceptions import ValidationError
-from rest_framework.fields import empty
 from rest_framework.request import Request
 from rest_framework.views import APIView
-from rest_typed.views.utils import (
-    find_request,
-    get_default_value,
-    get_explicit_param_settings,
-    is_explicit_request_param,
-    is_implicit_body_param,
-    is_implicit_request_param,
-)
+from rest_typed.views.utils import find_request
 
-from .param_settings import ParamSettings
-from .params import BodyParam, CurrentUserParam, HeaderParam, PassThruParam, PathParam, QueryParam
+from .view_param_factory import ViewParamFactory
 
 
 def wraps_drf(view):
@@ -38,56 +29,12 @@ def wraps_drf(view):
     return _wraps_drf
 
 
-def build_explicit_param(
-    param: inspect.Parameter, request: Request, settings: ParamSettings, path_args: dict
-):
-    if settings.param_type == "path":
-        key = settings.source or param.name
-        raw_value = path_args.get(key, empty)
-        return PathParam(param, request, settings=settings, raw_value=raw_value)
-    elif settings.param_type == "body":
-        return BodyParam(param, request, settings=settings)
-    elif settings.param_type == "header":
-        return HeaderParam(param, request, settings=settings)
-    elif settings.param_type == "current_user":
-        return CurrentUserParam(param, request, settings=settings)
-    elif settings.param_type == "query_param":
-        return QueryParam(param, request, settings=settings)
-
-
-def get_view_param(param: inspect.Parameter, request: Request, path_args: dict):
-    explicit_settings = get_explicit_param_settings(param)
-    default = get_default_value(param)
-
-    if explicit_settings:
-        return build_explicit_param(param, request, explicit_settings, path_args)
-    elif is_explicit_request_param(param):
-        return PassThruParam(request)
-    elif param.name in path_args:
-        return PathParam(
-            param,
-            request,
-            settings=ParamSettings(param_type="path", default=default),
-            raw_value=path_args.get(param.name),
-        )
-    elif is_implicit_body_param(param):
-        return BodyParam(param, request, settings=ParamSettings(param_type="body", default=default))
-    elif is_implicit_request_param(param):
-        return PassThruParam(request)
-    else:
-        return QueryParam(
-            param,
-            request,
-            settings=ParamSettings(param_type="query_param", default=default),
-        )
-
-
 def transform_view_params(typed_params: List[inspect.Parameter], request: Request, path_args: dict):
     validated_params = []
     errors: Dict[str, Any] = {}
 
     for param in typed_params:
-        p = get_view_param(param, request, path_args)
+        p = ViewParamFactory.make(param, request, path_args)
         value, error = p.validate_or_error()
 
         if error:
