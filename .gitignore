@@ -6,3 +6,4 @@ dist/
 .vscode/
 db.sqlite3
 drf_typed_views.egg-info/
+site/
