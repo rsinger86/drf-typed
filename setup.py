@@ -19,13 +19,13 @@ classifiers = [
     "Programming Language :: Python :: 3.6",
 ]
 setup(
-    name="drf-typed-views",
+    name="drf-typed",
     version="0.3.0",
     description="Use type annotations for automatic request validation in Django REST Framework",
     author="Robert Singer",
     author_email="robertgsinger@gmail.com",
     packages=find_packages(exclude=["test_project*"]),
-    url="https://github.com/rsinger86/drf-typed-views",
+    url="https://github.com/rsinger86/drf-typed",
     license="MIT",
     keywords="django rest type annotations automatic validation validate",
     long_description=readme(),

@@ -1,3 +1,27 @@
-site_name: My Docs
+site_name: Django REST - Typed
+
 theme:
-  name: material
+  name: "material"
+  language: en
+  feature:
+    tabs: false
+  palette:
+    primary: green
+    accent: green
+  font:
+    text: Roboto
+    code: Roboto Mono
+
+repo_name: rsinger86/drf-typed
+repo_url: https://github.com/rsinger86/drf-typed
+
+# Extensions
+markdown_extensions:
+  - admonition
+  - codehilite:
+      guess_lang: false
+  - toc:
+      permalink: true
+
+nav:
+  - Introduction: index.md
