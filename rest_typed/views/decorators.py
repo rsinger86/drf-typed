@@ -1,5 +1,5 @@
 import inspect
-from typing import Any, Dict, List
+from typing import Any, Callable, Dict, List
 
 from rest_framework.decorators import action, api_view
 from rest_framework.exceptions import ValidationError
@@ -17,19 +17,33 @@ def wraps_drf(view):
 
         wrapper.__name__ = view.__name__
         wrapper.__module__ = view.__module__
-        wrapper.renderer_classes = getattr(view, "renderer_classes", APIView.renderer_classes)
+        wrapper.renderer_classes = getattr(
+            view, "renderer_classes", APIView.renderer_classes
+        )
         wrapper.parser_classes = getattr(view, "parser_classes", APIView.parser_classes)
         wrapper.authentication_classes = getattr(
             view, "authentication_classes", APIView.authentication_classes
         )
-        wrapper.throttle_classes = getattr(view, "throttle_classes", APIView.throttle_classes)
-        wrapper.permission_classes = getattr(view, "permission_classes", APIView.permission_classes)
+        wrapper.throttle_classes = getattr(
+            view, "throttle_classes", APIView.throttle_classes
+        )
+        wrapper.permission_classes = getattr(
+            view, "permission_classes", APIView.permission_classes
+        )
         return wrapper
 
     return _wraps_drf
 
 
-def transform_view_params(typed_params: List[inspect.Parameter], request: Request, path_args: dict):
+def transform_view_params(
+    view_func: Callable, request: Request, path_args: dict
+) -> List[Any]:
+    typed_params = [
+        p for n, p in inspect.signature(view_func).parameters.items() if n != "self"
+    ]
+
+    # List[Parameter] -> see docs: https://docs.python.org/3/library/inspect.html#inspect.Parameter
+
     validated_params = []
     errors: Dict[str, Any] = {}
 
@@ -59,7 +73,11 @@ def prevalidate(view_func, for_method: bool = False):
     if for_method:
         error_msg = "For typed methods, 'self' must be passed as the first arg with no annotation"
 
-        if len(arg_info.args) < 1 or arg_info.args[0] != "self" or "self" in arg_info.annotations:
+        if (
+            len(arg_info.args) < 1
+            or arg_info.args[0] != "self"
+            or "self" in arg_info.annotations
+        ):
             raise Exception(error_msg)
 
 
@@ -72,9 +90,7 @@ def typed_api_view(methods):
         def wrapper(*original_args, **original_kwargs):
             original_args = list(original_args)
             request = find_request(original_args)
-            transformed = transform_view_params(
-                inspect.signature(view).parameters.values(), request, original_kwargs
-            )
+            transformed = transform_view_params(view, request, original_kwargs)
             return view(*transformed)
 
         return wrapper
@@ -91,12 +107,9 @@ def typed_action(**action_kwargs):
         def wrapper(*original_args, **original_kwargs):
             original_args = list(original_args)
             request = find_request(original_args)
-            _self = original_args.pop(0)
-
-            typed_params = [p for n, p in inspect.signature(view).parameters.items() if n != "self"]
-
-            transformed = transform_view_params(typed_params, request, original_kwargs)
-            return view(_self, *transformed)
+            selfy = original_args.pop(0)
+            transformed = transform_view_params(view, request, original_kwargs)
+            return view(selfy, *transformed)
 
         return wrapper
 

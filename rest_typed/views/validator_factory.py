@@ -4,8 +4,16 @@ from typing import Any
 
 from rest_framework import serializers
 from rest_typed.views.param_settings import ParamSettings
-from rest_typed.views.utils import parse_complex_type, parse_enum_annotation, parse_list_annotation
-from rest_typed.views.validators import DefaultValidator, MarshMallowValidator, PydanticValidator
+from rest_typed.views.utils import (
+    parse_complex_type,
+    parse_enum_annotation,
+    parse_list_annotation,
+)
+from rest_typed.views.validators import (
+    DefaultValidator,
+    MarshMallowValidator,
+    PydanticValidator,
+)
 
 
 class ValidatorFactory(object):
@@ -79,7 +87,9 @@ class ValidatorFactory(object):
             "default": settings.default,
         }
         if item_type is not Any:
-            options["child"] = ValidatorFactory.make(item_type, settings.child or ParamSettings())
+            options["child"] = ValidatorFactory.make(
+                item_type, settings.child or ParamSettings()
+            )
 
         return serializers.ListField(**options)
 

@@ -1,6 +1,6 @@
 import inspect
-from rest_framework.fields import empty
 
+from rest_framework.fields import empty
 from rest_framework.request import Request
 from rest_typed.views.param_settings import ParamSettings
 from rest_typed.views.params import (
@@ -11,7 +11,6 @@ from rest_typed.views.params import (
     PathParam,
     QueryParam,
 )
-
 from rest_typed.views.utils import (
     get_default_value,
     get_explicit_param_settings,
@@ -31,7 +30,9 @@ class ViewParamFactory(object):
             if explicit_settings.param_type == "path":
                 key = explicit_settings.source or param.name
                 raw_value = path_args.get(key, empty)
-                return PathParam(param, request, settings=explicit_settings, raw_value=raw_value)
+                return PathParam(
+                    param, request, settings=explicit_settings, raw_value=raw_value
+                )
             elif explicit_settings.param_type == "body":
                 return BodyParam(param, request, settings=explicit_settings)
             elif explicit_settings.param_type == "header":
@@ -52,7 +53,9 @@ class ViewParamFactory(object):
             )
         elif is_implicit_body_param(param):
             return BodyParam(
-                param, request, settings=ParamSettings(param_type="body", default=default)
+                param,
+                request,
+                settings=ParamSettings(param_type="body", default=default),
             )
         elif is_implicit_request_param(param):
             return PassThruParam(request)

@@ -16,9 +16,18 @@ from rest_typed.views.params import (
 )
 
 
+class FakeUser(object):
+    username: str
+
+    def __init__(self, username: str = "bob"):
+        self.username = username
+
+
 class DecoratorTests(APITestCase):
-    def fake_request(data={}, query_params={}):
-        return MagicMock(data=data, query_params=query_params)
+    def fake_request(self, data={}, query_params: dict = None, user: FakeUser = None):
+        return MagicMock(
+            data=data, query_params=query_params or {}, user=user or FakeUser()
+        )
 
     def get_params(self, func):
         return list(inspect.signature(func).parameters.values())
@@ -28,8 +37,8 @@ class DecoratorTests(APITestCase):
             return
 
         request = self.fake_request(query_params={"q": "cats"})
-        typed_params = inspect.signature(example_function).parameters.values()
-        result = transform_view_params(typed_params, request, {"id": "1"})
+
+        result = transform_view_params(example_function, request, {"id": "1"})
         self.assertEqual(result, [1, "cats"])
 
     def test_transform_view_params_throws_error(self):
@@ -37,39 +46,44 @@ class DecoratorTests(APITestCase):
             return
 
         request = self.fake_request(query_params={})
-        typed_params = self.get_params(example_function)
 
         with self.assertRaises(ValidationError) as context:
-            transform_view_params(typed_params, request, {"id": "one"})
+            transform_view_params(example_function, request, {"id": "one"})
 
         self.assertTrue("A valid integer is required" in str(context.exception))
         self.assertTrue("This field is required" in str(context.exception))
 
-    @patch("rest_typed.views.decorators.build_explicit_param")
-    def test_get_view_param_if_explicit_settings(self, mock_build_explicit_param):
-        def example_function(body: str = Body(source="name")):
+    def test_get_view_param_if_explicit_settings(self):
+        def example_function(name_from_body: str = Body(source="name")):
             return
 
-        get_view_param(self.get_params(example_function)[0], self.fake_request(), {})
-        mock_build_explicit_param.assert_called_once()
+        result = transform_view_params(
+            example_function,
+            self.fake_request(data={"name": "MJ"}),
+            {"pk": "1"},
+        )
+
+        self.assertEqual(result, ["MJ"])
 
     def test_get_view_param_if_explicit_request_param(self):
         def example_function(request: Request):
             return
 
-        result = get_view_param(self.get_params(example_function)[0], self.fake_request(), {})
-
-        self.assertTrue(isinstance(result, PassThruParam))
+        request = self.fake_request()
+        result = transform_view_params(example_function, request, {})
+        self.assertEqual(result, [request])
 
     def test_get_view_param_if_implicit_path_param(self):
         def example_function(pk: int):
             return
 
-        result = get_view_param(
-            self.get_params(example_function)[0], self.fake_request(), {"pk": 1}
+        result = transform_view_params(
+            example_function,
+            self.fake_request(),
+            {"pk": "1"},
         )
 
-        self.assertTrue(isinstance(result, PathParam))
+        self.assertEqual(result, [1])
 
     def test_get_view_param_if_implicit_body_param(self):
         class User(BaseModel):
@@ -79,66 +93,72 @@ class DecoratorTests(APITestCase):
         def example_function(user: User):
             return
 
-        result = get_view_param(self.get_params(example_function)[0], self.fake_request(), {})
+        result = transform_view_params(
+            example_function,
+            self.fake_request(data={"id": 1, "name": "Bob"}),
+            {"id": "1"},
+        )
 
-        self.assertTrue(isinstance(result, BodyParam))
+        self.assertEqual(result, [User(id=1, name="Bob")])
 
     def test_get_view_param_if_implicit_query_param(self):
         def example_function(q: str):
             return
 
-        result = get_view_param(self.get_params(example_function)[0], self.fake_request(), {})
+        result = transform_view_params(
+            example_function,
+            self.fake_request(query_params={"q": "mysearch"}),
+            {"id": "1"},
+        )
 
-        self.assertTrue(isinstance(result, QueryParam))
+        self.assertEqual(result, ["mysearch"])
 
     def test_build_explicit_param_for_query(self):
         def example_function(q: str = Query()):
             return
 
-        result = build_explicit_param(
-            self.get_params(example_function)[0],
-            self.fake_request(),
-            ParamSettings(param_type="query_param"),
+        result = transform_view_params(
+            example_function,
+            self.fake_request(query_params={"q": "HI"}),
             {},
         )
 
-        self.assertTrue(isinstance(result, QueryParam))
+        self.assertEqual(result, ["HI"])
 
     def test_build_explicit_param_for_path(self):
-        def example_function(q: str = Path()):
+        def example_function(id: str = Path()):
             return
 
-        result = build_explicit_param(
-            self.get_params(example_function)[0],
+        result = transform_view_params(
+            example_function,
             self.fake_request(),
-            ParamSettings(param_type="path"),
-            {},
+            {"id": 12},
         )
 
-        self.assertTrue(isinstance(result, PathParam))
+        self.assertEqual(result, ["12"])
 
     def test_build_explicit_param_for_body(self):
-        def example_function(q: str = Body()):
+        def example_function(d: dict = Body()):
             return
 
-        result = build_explicit_param(
-            self.get_params(example_function)[0],
-            self.fake_request(),
-            ParamSettings(param_type="body"),
-            {},
+        result = transform_view_params(
+            example_function,
+            self.fake_request(data={"a": "b"}),
+            {"id": 12},
         )
 
-        self.assertTrue(isinstance(result, BodyParam))
+        self.assertEqual(result, [{"a": "b"}])
 
     def test_build_explicit_param_for_current_user(self):
-        def example_function(q: str = CurrentUser()):
+        def example_function(user: FakeUser = CurrentUser()):
             return
 
-        result = build_explicit_param(
-            self.get_params(example_function)[0],
-            self.fake_request(),
-            ParamSettings(param_type="current_user"),
-            {},
+        bob = FakeUser(username="bobdylan")
+
+        result = transform_view_params(
+            example_function,
+            self.fake_request(user=bob),
+            {"id": 12},
         )
 
-        self.assertTrue(isinstance(result, CurrentUserParam))
+        self.assertEqual(result, [bob])
