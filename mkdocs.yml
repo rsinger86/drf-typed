@@ -5,6 +5,9 @@ theme:
   language: en
   feature:
     tabs: false
+  features:
+    - navigation.sections
+    - toc.integrate
   palette:
     primary: green
     accent: green
@@ -17,6 +20,10 @@ repo_url: https://github.com/rsinger86/drf-typed
 
 # Extensions
 markdown_extensions:
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.snippets
   - admonition
   - codehilite:
       guess_lang: false
@@ -25,3 +32,11 @@ markdown_extensions:
 
 nav:
   - Introduction: index.md
+  - Views:
+      - Basic Usage: views/simple_usage.md
+      - Advanced Usage: views/advanced_usage.md
+      - Pydantic/Marshmallow: views/third_party_schemas.md
+      - Request Elements: views/request_elements.md
+      - Supported Types: views/supported_types.md
+
+  # - Serializers:
