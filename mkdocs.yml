@@ -9,8 +9,7 @@ theme:
     - navigation.sections
     - toc.integrate
   palette:
-    primary: green
-    accent: green
+    primary: red
   font:
     text: Roboto
     code: Roboto Mono

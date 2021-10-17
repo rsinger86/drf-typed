@@ -11,8 +11,6 @@ They are drop-in replacements for Django REST Framework's `serializers.Serialize
 
 You can use type annotations as shorthand for declaring serializer fields, similar to how the popular library [Pydantic](https://pydantic-docs.helpmanual.io/) enforces type hints at runtime for data validation.
 
-This approach works well for simple cases, but when you need more complex validation, such as enforcing value ranges or character length, it's best to use DRF's fields.
-
 DRF's [core field arguments](https://www.django-rest-framework.org/api-guide/fields/#core-arguments) of `required`, `default` and `allow_null` map cleanly to Python's attribute type hints.
 
 If you only need to specify those qualities, in addition to the type, you can use annotations instead of field declarations:
@@ -38,6 +36,8 @@ class BookingSerializer(serializers.Serializer):
     number_of_people = serializers.IntegerField(default=None)
 """
 ```
+
+This approach works well for simple cases, but when you need more complex validation, such as enforcing value ranges or character length, it's best to use standard DRF fields.
 
 ### Enum & Lists Example
 

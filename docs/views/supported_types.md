@@ -24,7 +24,7 @@ Additional arguments:
 Some examples:
 
 ```python
-from rest_typed_views import typed_api_view, Query
+from rest_typed import typed_api_view, Query
 
 @typed_api_view(["GET"])
 def search_users(email: str = Query(format='email')):
@@ -52,7 +52,7 @@ Additional arguments:
 An example:
 
 ```python
-from rest_typed_views import typed_api_view, Query
+from rest_typed import typed_api_view, Query
 
 @typed_api_view(["GET"])
 def search_products(inventory: int = Query(min_value=0)):
@@ -69,7 +69,7 @@ Additional arguments:
 An example:
 
 ```python
-from rest_typed_views import typed_api_view, Query
+from rest_typed import typed_api_view, Query
 
 @typed_api_view(["GET"])
 def search_products(price: float = Query(min_value=0)):
@@ -134,7 +134,7 @@ Additional arguments:
 An example:
 
 ```python
-from rest_typed_views import typed_api_view, Param, Query
+from rest_typed import typed_api_view, Param, Query
 
 @typed_api_view(["GET"])
 def search_contacts(emails: List[str] = Query(max_length=10, child=Param(format="email"))):
@@ -148,7 +148,7 @@ Validates that the value of the input is one of a limited set of choices. Think 
 An example:
 
 ```python
-from rest_typed_views import typed_api_view, Query
+from rest_typed import typed_api_view, Query
 
 class Straws(str, Enum):
     paper = "paper"
@@ -165,7 +165,7 @@ You can annotate view parameters with [Marshmallow schemas](https://marshmallow.
 
 ```python
 from marshmallow import Schema, fields
-from rest_typed_views import typed_api_view, Query
+from rest_typed import typed_api_view, Query
 
 class ArtistSchema(Schema):
     name = fields.Str()
@@ -196,7 +196,7 @@ You can annotate view parameters with [Pydantic models](https://pydantic-docs.he
 
 ```python
 from pydantic import BaseModel
-from rest_typed_views import typed_api_view, Query
+from rest_typed import typed_api_view, Query
 
 class User(BaseModel):
     id: int

@@ -2,12 +2,12 @@
 
 ## Overview
 
-[![Package version](https://badge.fury.io/py/drf-typed-views.svg)](https://pypi.python.org/pypi/drf-typed-views)
-[![Python versions](https://img.shields.io/pypi/status/drf-typed-views.svg)](https://img.shields.io/pypi/status/drf-typed-views.svg/)
+[![Package version](https://badge.fury.io/py/drf-typed.svg)](https://pypi.python.org/pypi/drf-typed)
+[![Python versions](https://img.shields.io/pypi/status/drf-typed.svg)](https://img.shields.io/pypi/status/drf-typed.svg/)
 
-This project extends [Django REST Framework](https://www.django-rest-framework.org/) to allow use of Python's type annotations for automatically validating/casting view parameters and augmenting serializers with typed attributes and annotation-generated fields.
+This project extends [Django REST Framework](https://www.django-rest-framework.org/) to allow use of Python's type hints for automatically validating view parameters, as well as supporting typed attributes and annotation-generated fields on serializers.
 
-Deriving automatic behavior from type annotations has become increasingly popular with the FastAPI and Django Ninja frameworks. The goal of this project is to provide these benefits to the DRF ecosystem.
+Deriving automatic behavior from type annotations has become increasingly popular with the [FastAPI](https://fastapi.tiangolo.com/) and [Django Ninja](https://django-ninja.rest-framework.com/) frameworks. The goal of this project is to provide these benefits to the DRF ecosystem.
 
 Main benefits:
 
@@ -16,10 +16,8 @@ Main benefits:
 - Simple serializers can have their fields auto-generated from annotations
 - Validated serializer data can be accessed from attributes, with their types known to the IDE
 - [Pydantic](https://pydantic-docs.helpmanual.io/) models and [Marshmallow](https://marshmallow.readthedocs.io) schemas are compatible types for view parameters. Annotate your POST/PUT functions with them to automatically validate incoming request bodies.
-- Advanced validators for more than just the type: `min_value`/`max_value` for numbers
-- Validate string formats: `email`, `uuid` and `ipv4/6`; use Python's native `Enum` for "choices" validation
 
-## Quick example - views
+## Views Example
 
 ```python
 from rest_typed.views import typed_api_view
@@ -47,7 +45,7 @@ GET /users/?registered_on=**9999**&groups=**admin**&staff=**maybe**<br>
 }
 ```
 
-## Quick example - serializers
+## Serializers Example
 
 You can use type annotations to generate basic serializer fields automatically.
 

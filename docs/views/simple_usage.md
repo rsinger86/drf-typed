@@ -19,7 +19,7 @@ urlpatterns = [
     url(r"^(?P<city>[\w+])/restaurants/", search_restaurants)
 ]
 
-from rest_typed_views import typed_api_view
+from rest_typed import typed_api_view
 
 # Example request: /chicago/restaurants?delivery=yes
 @typed_api_view(["GET"])
@@ -46,7 +46,7 @@ DRF_TYPED_VIEWS = {"schema_packages": ["pydantic"]}
 
 # views.py
 from pydantic import BaseModel
-from rest_typed_views import typed_api_view
+from rest_typed import typed_api_view
 
 
 class RoomEnum(str, Enum):

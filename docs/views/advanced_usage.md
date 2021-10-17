@@ -5,7 +5,7 @@
 For more advanced use cases, you can explicitly declare how each parameter's value is sourced from the request -- from the query parameters, path, body or headers -- as well as define additional validation rules. You import a class named after the request element that is expected to hold the value and assign it to the parameter's default.
 
 ```python
-from rest_typed_views import typed_api_view, Query, Path
+from rest_typed import typed_api_view, Query, Path
 
 @typed_api_view(["GET"])
 def list_documents(year: date = Path(), title: str = Query(default=None)):
@@ -15,7 +15,7 @@ def list_documents(year: date = Path(), title: str = Query(default=None)):
 In this example, `year` is required and must come from the URL path and `title` is an optional query parameter because the `default` is set. This is similar to Django REST's [serializer fields](https://www.django-rest-framework.org/api-guide/fields/#core-arguments): passing a default implies that the filed is not required.
 
 ```python
-from rest_typed_views import typed_api_view, Header
+from rest_typed import typed_api_view, Header
 
 @typed_api_view(["GET"])
 def get_cache_header(cache: str = Header()):
@@ -29,7 +29,7 @@ In this example, `cache` is required and must come from the headers.
 You can use the request element class (`Query`, `Path`, `Body`, `Header`) to set additional validation constraints. You'll find that these keywords are consistent with Django REST's serializer fields.
 
 ```python
-from rest_typed_views import typed_api_view, Query, Path
+from rest_typed import typed_api_view, Query, Path
 
 @typed_api_view(["GET"])
 def search_restaurants(
@@ -60,7 +60,7 @@ Similar to how `source` is used in Django REST to control field mappings during 
 
 ```python
 from pydantic import BaseModel
-from rest_typed_views import typed_api_view, Query, Path
+from rest_typed import typed_api_view, Query, Path
 
 class Document(BaseModel):
     title: str
@@ -91,7 +91,7 @@ You can also use dot-notation to source data multiple levels deep in the JSON pa
 For the basic case of list validation - validating types within a comma-delimited string - declare the type to get automatic validation/coercion:
 
 ```python
-from rest_typed_views import typed_api_view, Query
+from rest_typed import typed_api_view, Query
 
 @typed_api_view(["GET"])
 def search_movies(item_ids: List[int] = [])):
@@ -106,7 +106,7 @@ But you can also specify `min_length` and `max_length`, as well as the `delimite
 Import the generic `Param` class and use it to set the rules for the `child` elements:
 
 ```python
-from rest_typed_views import typed_api_view, Query, Param
+from rest_typed import typed_api_view, Query, Param
 
 @typed_api_view(["GET"])
 def search_outcomes(
@@ -127,7 +127,7 @@ You probably won't need to access the `request` object directly, as this package
 
 ```python
 from rest_framework.request import Request
-from rest_typed_views import typed_api_view
+from rest_typed import typed_api_view
 
 @typed_api_view(["GET"])
 def search_documens(request: Request, q: str = None):
@@ -140,7 +140,7 @@ Often, it's useful to validate a combination of query parameters - for instance,
 
 ```python
 from marshmallow import Schema, fields, validates_schema, ValidationError
-from rest_typed_views import typed_api_view
+from rest_typed import typed_api_view
 
 class SearchParamsSchema(Schema):
     start_date = fields.Date()
@@ -162,7 +162,7 @@ You can apply some very basic access control by applying some validation rules t
 
 ```python
     from my_pydantic_schemas import BookingSchema
-    from rest_typed_views import typed_api_view, CurrentUser
+    from rest_typed import typed_api_view, CurrentUser
 
     @typed_api_view(["POST"])
     def create_booking(

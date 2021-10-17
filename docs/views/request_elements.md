@@ -5,7 +5,7 @@
 You can specify the part of the request that holds each view parameter by using default function arguments, for example:
 
 ```python
-    from rest_typed_views import Body, Query
+    from rest_typed import Body, Query
 
     @typed_api_view(["PUT"])
     def update_user(
@@ -28,7 +28,7 @@ Passing keywords for additional validation constraints is a _powerful capability
 Use the `source` argument to alias the parameter value and pass keywords to set additional constraints. For example, your query parameters can have dashes, but be mapped to a parameter that have underscores:
 
 ```python
-    from rest_typed_views import typed_api_view, Query
+    from rest_typed import typed_api_view, Query
 
     @typed_api_view(["GET"])
     def search_events(
@@ -43,7 +43,7 @@ Use the `source` argument to alias the parameter value and pass keywords to set 
 By default, the entire request body is used to populate parameters marked with this class (`source="*"`):
 
 ```python
-    from rest_typed_views import typed_api_view, Body
+    from rest_typed import typed_api_view, Body
     from my_pydantic_schemas import ResidenceListing
 
     @typed_api_view(["POST"])
@@ -65,7 +65,7 @@ However, you can also specify nested fields in the request body, with support fo
             }
         }
     """
-    from rest_typed_views import typed_api_view, Body
+    from rest_typed import typed_api_view, Body
 
     @typed_api_view(["POST"])
     def create_user(
@@ -81,7 +81,7 @@ However, you can also specify nested fields in the request body, with support fo
 Use the `source` argument to alias a view parameter name. More commonly, though, you can set additional validation rules for parameters coming from the URL path.
 
 ```python
-    from rest_typed_views import typed_api_view, Query
+    from rest_typed import typed_api_view, Query
 
     @typed_api_view(["GET"])
     def retrieve_event(id: int = Path(min_value=0, max_value=1000)):
@@ -93,7 +93,7 @@ Use the `source` argument to alias a view parameter name. More commonly, though,
 Use the `Header` request element class to automatically retrieve a value from a header. Underscores in variable names are automatically converted to dashes.
 
 ```python
-    from rest_typed_views import typed_api_view, Header
+    from rest_typed import typed_api_view, Header
 
     @typed_api_view(["GET"])
     def retrieve_event(id: int, cache_control: str = Header(default="no-cache")):
@@ -103,7 +103,7 @@ Use the `Header` request element class to automatically retrieve a value from a 
 If you prefer, you can explicitly specify the exact header key:
 
 ```python
-    from rest_typed_views import typed_api_view, Header
+    from rest_typed import typed_api_view, Header
 
     @typed_api_view(["GET"])
     def retrieve_event(id: int, cache_control: str = Header(source="cache-control", default="no-cache")):
@@ -116,7 +116,7 @@ Use this class to have a view parameter populated with the current user of the r
 
 ```python
     from my_pydantic_schemas import BookingSchema
-    from rest_typed_views import typed_api_view, CurrentUser
+    from rest_typed import typed_api_view, CurrentUser
 
     @typed_api_view(["POST"])
     def create_booking(booking: BookingSchema, user: User = CurrentUser()):
@@ -138,7 +138,7 @@ An example:
 
 ```python
 from django.contrib.auth.models import User
-from rest_typed_views import typed_api_view, CurrentUser
+from rest_typed import typed_api_view, CurrentUser
 
 @typed_api_view(["GET"])
 def do_something(user: User = CurrentUser(member_of="admin")):
