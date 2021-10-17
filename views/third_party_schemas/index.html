@@ -9,19 +9,19 @@
       
       
       
-      <link rel="icon" href="/assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.2">
     
     
       
-        <title>Django REST - Typed</title>
+        <title>Pydantic/Marshmallow - Django REST - Typed</title>
       
     
     
-      <link rel="stylesheet" href="/assets/stylesheets/main.24c991ad.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.24c991ad.min.css">
       
         
-        <link rel="stylesheet" href="/assets/stylesheets/palette.3f5d1f46.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.3f5d1f46.min.css">
         
           
           
@@ -57,12 +57,17 @@
     <body dir="ltr" data-md-color-scheme="" data-md-color-primary="red" data-md-color-accent="">
   
     
-    <script>function __prefix(e){return new URL("/",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    <script>function __prefix(e){return new URL("../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
+      
+        
+        <a href="#enabling-marshmallow-pydantic-schemas" class="md-skip">
+          Skip to content
+        </a>
       
     </div>
     <div data-md-component="announce">
@@ -73,7 +78,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="/." title="Django REST - Typed" class="md-header__button md-logo" aria-label="Django REST - Typed" data-md-component="logo">
+    <a href="../.." title="Django REST - Typed" class="md-header__button md-logo" aria-label="Django REST - Typed" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
@@ -92,7 +97,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              
+              Pydantic/Marshmallow
             
           </span>
         </div>
@@ -175,7 +180,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="/." title="Django REST - Typed" class="md-nav__button md-logo" aria-label="Django REST - Typed" data-md-component="logo">
+    <a href="../.." title="Django REST - Typed" class="md-nav__button md-logo" aria-label="Django REST - Typed" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
@@ -207,7 +212,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         Introduction
       </a>
     </li>
@@ -220,14 +225,16 @@
 
   
   
+    
+  
   
     
       
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
       
       
       
@@ -250,7 +257,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/views/simple_usage/" class="md-nav__link">
+      <a href="../simple_usage/" class="md-nav__link">
         Basic Usage
       </a>
     </li>
@@ -264,7 +271,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/views/advanced_usage/" class="md-nav__link">
+      <a href="../advanced_usage/" class="md-nav__link">
         Advanced Usage
       </a>
     </li>
@@ -276,11 +283,21 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="/views/third_party_schemas/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         Pydantic/Marshmallow
       </a>
+      
     </li>
   
 
@@ -292,7 +309,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/views/request_elements/" class="md-nav__link">
+      <a href="../request_elements/" class="md-nav__link">
         Request Elements
       </a>
     </li>
@@ -306,7 +323,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/views/supported_types/" class="md-nav__link">
+      <a href="../supported_types/" class="md-nav__link">
         Supported Types
       </a>
     </li>
@@ -356,7 +373,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/serializers/typed_serializers/" class="md-nav__link">
+      <a href="../../serializers/typed_serializers/" class="md-nav__link">
         Typed Serializers
       </a>
     </li>
@@ -370,7 +387,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/serializers/type_to_field_ref/" class="md-nav__link">
+      <a href="../../serializers/type_to_field_ref/" class="md-nav__link">
         Type-to-Field Refernce
       </a>
     </li>
@@ -395,7 +412,25 @@
           <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset">
               
-  <h1>404 - Not found</h1>
+                
+                  <a href="https://github.com/rsinger86/drf-typed/edit/master/docs/views/third_party_schemas.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="enabling-marshmallow-pydantic-schemas">Enabling Marshmallow, Pydantic Schemas <a id="enabling-3rd-party-validators"></a><a class="headerlink" href="#enabling-marshmallow-pydantic-schemas" title="Permanent link">&para;</a></h1>
+<p>As an alternative to Django REST's serializers, you can annotate views with <a href="https://pydantic-docs.helpmanual.io/">Pydantic</a> models or <a href="https://marshmallow.readthedocs.io/en/stable/">Marshmallow</a> schemas to have their parameters automatically validated and pass an instance of the Pydantic/Marshmallow class to your method/function.</p>
+<p>To enable support for third-party libraries for complex object validation, modify your settings:</p>
+<div class="highlight"><pre><span></span><code><span class="n">DRF_TYPED_VIEWS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;schema_packages&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;pydantic&quot;</span><span class="p">,</span> <span class="s2">&quot;marshmallow&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>These third-party packages must be installed in your virtual environment/runtime.</p>
+                
+              
+              
+                
+
 
               
             </article>
@@ -406,6 +441,41 @@
       
         
 <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../advanced_usage/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Advanced Usage" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Advanced Usage
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../request_elements/" class="md-footer__link md-footer__link--next" aria-label="Next: Request Elements" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Request Elements
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -428,10 +498,10 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "/", "features": ["navigation.sections", "toc.integrate"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "/assets/javascripts/workers/search.e99e714c.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "toc.integrate"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.e99e714c.min.js", "version": null}</script>
     
     
-      <script src="/assets/javascripts/bundle.bc35569b.min.js"></script>
+      <script src="../../assets/javascripts/bundle.bc35569b.min.js"></script>
       
     
   </body>

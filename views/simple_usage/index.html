@@ -9,19 +9,19 @@
       
       
       
-      <link rel="icon" href="assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.2">
     
     
       
-        <title>Django REST - Typed</title>
+        <title>Basic Usage - Django REST - Typed</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.24c991ad.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.24c991ad.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.3f5d1f46.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.3f5d1f46.min.css">
         
           
           
@@ -57,7 +57,7 @@
     <body dir="ltr" data-md-color-scheme="" data-md-color-primary="red" data-md-color-accent="">
   
     
-    <script>function __prefix(e){return new URL(".",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    <script>function __prefix(e){return new URL("../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -65,7 +65,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#django-rest-framework-typed" class="md-skip">
+        <a href="#typed-views" class="md-skip">
           Skip to content
         </a>
       
@@ -78,7 +78,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="." title="Django REST - Typed" class="md-header__button md-logo" aria-label="Django REST - Typed" data-md-component="logo">
+    <a href="../.." title="Django REST - Typed" class="md-header__button md-logo" aria-label="Django REST - Typed" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
@@ -97,7 +97,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Introduction
+              Basic Usage
             
           </span>
         </div>
@@ -180,7 +180,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="Django REST - Typed" class="md-nav__button md-logo" aria-label="Django REST - Typed" data-md-component="logo">
+    <a href="../.." title="Django REST - Typed" class="md-nav__button md-logo" aria-label="Django REST - Typed" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
@@ -210,65 +210,11 @@
 
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Introduction
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="." class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
         Introduction
       </a>
-      
-        
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
-    Overview
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#views-example" class="md-nav__link">
-    Views Example
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#serializers-example" class="md-nav__link">
-    Serializers Example
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -279,14 +225,16 @@
 
   
   
+    
+  
   
     
       
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
       
       
       
@@ -307,11 +255,65 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="views/simple_usage/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Basic Usage
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         Basic Usage
       </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#simple-usage" class="md-nav__link">
+    Simple Usage
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#basic-get-request" class="md-nav__link">
+    Basic GET Request
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#basic-post-request" class="md-nav__link">
+    Basic POST Request
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -323,7 +325,7 @@
   
   
     <li class="md-nav__item">
-      <a href="views/advanced_usage/" class="md-nav__link">
+      <a href="../advanced_usage/" class="md-nav__link">
         Advanced Usage
       </a>
     </li>
@@ -337,7 +339,7 @@
   
   
     <li class="md-nav__item">
-      <a href="views/third_party_schemas/" class="md-nav__link">
+      <a href="../third_party_schemas/" class="md-nav__link">
         Pydantic/Marshmallow
       </a>
     </li>
@@ -351,7 +353,7 @@
   
   
     <li class="md-nav__item">
-      <a href="views/request_elements/" class="md-nav__link">
+      <a href="../request_elements/" class="md-nav__link">
         Request Elements
       </a>
     </li>
@@ -365,7 +367,7 @@
   
   
     <li class="md-nav__item">
-      <a href="views/supported_types/" class="md-nav__link">
+      <a href="../supported_types/" class="md-nav__link">
         Supported Types
       </a>
     </li>
@@ -415,7 +417,7 @@
   
   
     <li class="md-nav__item">
-      <a href="serializers/typed_serializers/" class="md-nav__link">
+      <a href="../../serializers/typed_serializers/" class="md-nav__link">
         Typed Serializers
       </a>
     </li>
@@ -429,7 +431,7 @@
   
   
     <li class="md-nav__item">
-      <a href="serializers/type_to_field_ref/" class="md-nav__link">
+      <a href="../../serializers/type_to_field_ref/" class="md-nav__link">
         Type-to-Field Refernce
       </a>
     </li>
@@ -455,80 +457,70 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/rsinger86/drf-typed/edit/master/docs/index.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/rsinger86/drf-typed/edit/master/docs/views/simple_usage.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
                 
-                <h1 id="django-rest-framework-typed">Django REST Framework - Typed<a class="headerlink" href="#django-rest-framework-typed" title="Permanent link">&para;</a></h1>
-<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p><a href="https://pypi.python.org/pypi/drf-typed"><img alt="Package version" src="https://badge.fury.io/py/drf-typed.svg" /></a>
-<a href="https://img.shields.io/pypi/status/drf-typed.svg/"><img alt="Python versions" src="https://img.shields.io/pypi/status/drf-typed.svg" /></a></p>
-<p>This project extends <a href="https://www.django-rest-framework.org/">Django REST Framework</a> to allow use of Python's type hints for automatically validating view parameters, as well as supporting typed attributes and annotation-generated fields on serializers.</p>
-<p>Deriving automatic behavior from type annotations has become increasingly popular with the <a href="https://fastapi.tiangolo.com/">FastAPI</a> and <a href="https://django-ninja.rest-framework.com/">Django Ninja</a> frameworks. The goal of this project is to provide these benefits to the DRF ecosystem.</p>
-<p>Main benefits:</p>
+                <h1 id="typed-views">Typed Views<a class="headerlink" href="#typed-views" title="Permanent link">&para;</a></h1>
+<h2 id="simple-usage">Simple Usage<a class="headerlink" href="#simple-usage" title="Permanent link">&para;</a></h2>
+<p>For many cases, you can rely on implicit behavior for how different parts of the request (URL path variables, query parameters, body) map to the parameters of a view function/method.</p>
+<p>The value of a view parameter will come from...</p>
 <ul>
-<li>View inputs can be individually declared, not buried inside all-encompassing <code>request</code> objects.</li>
-<li>Type annotations can replace repetitive view validation/sanitization code.</li>
-<li>Simple serializers can have their fields auto-generated from annotations</li>
-<li>Validated serializer data can be accessed from attributes, with their types known to the IDE</li>
-<li><a href="https://pydantic-docs.helpmanual.io/">Pydantic</a> models and <a href="https://marshmallow.readthedocs.io">Marshmallow</a> schemas are compatible types for view parameters. Annotate your POST/PUT functions with them to automatically validate incoming request bodies.</li>
+<li>the URL path if the path variable and the view argument have the same name, <em>or</em>:</li>
+<li>the request body if the view argument is annotated using a class from a supported library for complex object validation (Pydantic, MarshMallow), <em>or</em>:</li>
+<li>a query parameter with the same name</li>
 </ul>
-<h2 id="views-example">Views Example<a class="headerlink" href="#views-example" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">rest_typed.views</span> <span class="kn">import</span> <span class="n">typed_api_view</span>
+<p>Unless a default value is given, the parameter is <strong>required</strong> and a <a href="https://www.django-rest-framework.org/api-guide/exceptions/#validationerror"><code>ValidationError</code></a> will be raised if not set.</p>
+<h2 id="basic-get-request">Basic GET Request<a class="headerlink" href="#basic-get-request" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^(?P&lt;city&gt;[\w+])/restaurants/&quot;</span><span class="p">,</span> <span class="n">search_restaurants</span><span class="p">)</span>
+<span class="p">]</span>
 
+<span class="kn">from</span> <span class="nn">rest_typed</span> <span class="kn">import</span> <span class="n">typed_api_view</span>
+
+<span class="c1"># Example request: /chicago/restaurants?delivery=yes</span>
 <span class="nd">@typed_api_view</span><span class="p">([</span><span class="s2">&quot;GET&quot;</span><span class="p">])</span>
-<span class="k">def</span> <span class="nf">get_users</span><span class="p">(</span><span class="n">registered_on</span><span class="p">:</span> <span class="n">date</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">groups</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">staff</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">registered_on</span><span class="p">,</span> <span class="n">groups</span><span class="p">,</span> <span class="n">is_staff</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">search_restaurants</span><span class="p">(</span><span class="n">city</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">rating</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">offers_delivery</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="n">restaurants</span> <span class="o">=</span> <span class="n">Restaurant</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">city</span><span class="o">=</span><span class="n">city</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">rating</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">restaurants</span> <span class="o">=</span> <span class="n">restaurants</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">rating__gte</span><span class="o">=</span><span class="n">rating</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">offers_delivery</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">restaurants</span> <span class="o">=</span> <span class="n">restaurants</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">delivery</span><span class="o">=</span><span class="n">offers_delivery</span><span class="p">)</span>
 </code></pre></div>
-<p>GET /users/registered/?registered_on=<strong>2019-03-03</strong>&amp;groups=<strong>4,5</strong>&amp;staff=<strong>yes</strong><br></p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Status code: 200</span>
-<span class="n">date</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>   <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>  <span class="kc">True</span>
-</code></pre></div>
-<p>GET /users/?registered_on=<strong>9999</strong>&amp;groups=<strong>admin</strong>&amp;staff=<strong>maybe</strong><br></p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Status code: 400 / ValidationError raised</span>
-<span class="p">{</span>
-  <span class="s2">&quot;registered_on&quot;</span><span class="p">:</span> <span class="s2">&quot;&#39;9999&#39; is not a valid date&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;groups&quot;</span><span class="p">:</span> <span class="s2">&quot;&#39;admin&#39; is not a valid integer&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;staff&quot;</span><span class="p">:</span> <span class="s2">&quot;&#39;maybe&#39; is not a valid boolean&quot;</span>
-<span class="p">}</span>
-</code></pre></div>
-<h2 id="serializers-example">Serializers Example<a class="headerlink" href="#serializers-example" title="Permanent link">&para;</a></h2>
-<p>You can use type annotations to generate basic serializer fields automatically.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
-<span class="kn">from</span> <span class="nn">rest_typed.serializers</span> <span class="kn">import</span> <span class="n">TSerializer</span>
+<p>In this example, <code>city</code> is required and must be its string. Its value comes from the URL path variable with the same name. The other parameters, <code>rating</code> and <code>offers_delivery</code>, are not part of the path parameters and are assumed to be query parameters. They both have a default value, so they are optional.</p>
+<h2 id="basic-post-request">Basic POST Request<a class="headerlink" href="#basic-post-request" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># urls.py</span>
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span><span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^(?P&lt;city&gt;[\w+])/bookings/&quot;</span><span class="p">,</span> <span class="n">create_booking</span><span class="p">)]</span>
+
+<span class="c1"># settings.py</span>
+<span class="n">DRF_TYPED_VIEWS</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;schema_packages&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;pydantic&quot;</span><span class="p">]}</span>
+
+<span class="c1"># views.py</span>
+<span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span>
+<span class="kn">from</span> <span class="nn">rest_typed</span> <span class="kn">import</span> <span class="n">typed_api_view</span>
 
 
-<span class="k">class</span> <span class="nc">MovieSerializer</span><span class="p">(</span><span class="n">TSerializer</span><span class="p">):</span>
-    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span>          <span class="c1"># --&gt; CharField(required=True, allow_null=False)</span>
-    <span class="n">release_date</span><span class="p">:</span> <span class="n">date</span>  <span class="c1"># --&gt; DateField(required=True, allow_null=False)</span>
-    <span class="n">description</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># --&gt; DateField(default=None)</span>
+<span class="k">class</span> <span class="nc">RoomEnum</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+    <span class="n">double</span> <span class="o">=</span> <span class="s1">&#39;double&#39;</span>
+    <span class="n">twin</span> <span class="o">=</span> <span class="s1">&#39;twin&#39;</span>
+    <span class="n">single</span> <span class="o">=</span> <span class="s1">&#39;single&#39;</span>
 
-<span class="n">movie</span> <span class="o">=</span> <span class="n">MovieSerializer</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span>
-  <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;The Last Duel&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;release_date&quot;</span><span class="p">:</span> <span class="s2">&quot;2021-10-09&quot;</span><span class="p">,</span>
-<span class="p">})</span>
 
-<span class="n">movie</span><span class="o">.</span><span class="n">is_valid</span><span class="p">(</span><span class="n">raise_exception</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">BookingSchema</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">start_date</span><span class="p">:</span> <span class="n">date</span>
+    <span class="n">end_date</span><span class="p">:</span> <span class="n">date</span>
+    <span class="n">room</span><span class="p">:</span> <span class="n">RoomEnum</span> <span class="o">=</span> <span class="n">RoomEnum</span><span class="o">.</span><span class="n">double</span>
+    <span class="n">include_breakfast</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="n">movie</span><span class="o">.</span><span class="n">validated_data</span><span class="p">)</span>
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">  {</span>
-<span class="sd">    &quot;title&quot;: &quot;The Last Duel&quot;,</span>
-<span class="sd">    &quot;release_date&quot;: date(2021, 10, 9),</span>
-<span class="sd">    &quot;description&quot;: None</span>
-<span class="sd">  }</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="c1"># Example request: /chicago/bookings/</span>
+<span class="nd">@typed_api_view</span><span class="p">([</span><span class="s2">&quot;POST&quot;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">create_booking</span><span class="p">(</span><span class="n">city</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">booking</span><span class="p">:</span> <span class="n">BookingSchema</span><span class="p">):</span>
+    <span class="c1"># do something with the validated booking...</span>
 </code></pre></div>
-<p>Once you've called <code>is_valid()</code>, you can also access validated attributes directly, and if you're using a popular IDE, you should get added type safety:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">movie</span><span class="o">.</span><span class="n">title</span><span class="p">)</span> <span class="c1"># The Last Duel</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">movie</span><span class="o">.</span><span class="n">release_date</span><span class="p">)</span> <span class="c1"># date(2021, 10, 9)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">movie</span><span class="o">.</span><span class="n">description</span><span class="p">)</span> <span class="c1"># None</span>
-</code></pre></div>
-<p>IDE can help you understand and enforce types:</p>
-<p><img alt="Type Annotation" src="images/attribute-str-type-hint.jpg" /></p>
-<p>IDE can auto-complete attributes:</p>
-<p><img alt="Type Annotation" src="images/attribute-date-auto-complete.jpg" /></p>
+<p>In this example, <code>city</code> will again be populated using the URL path variable. The <code>booking</code> parameter is annotated using a supported complex schema class (Pydantic), so it's assumed to come from the request body, which will be read in as JSON, used to hydrate the Pydantic <code>BookingSchema</code> and then validated. If validation fails a <code>ValidationError</code> will be raised.</p>
                 
               
               
@@ -547,15 +539,30 @@
   
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
+        
+        <a href="../.." class="md-footer__link md-footer__link--prev" aria-label="Previous: Introduction" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Introduction
+            </div>
+          </div>
+        </a>
+      
       
         
-        <a href="views/simple_usage/" class="md-footer__link md-footer__link--next" aria-label="Next: Basic Usage" rel="next">
+        <a href="../advanced_usage/" class="md-footer__link md-footer__link--next" aria-label="Next: Advanced Usage" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              Basic Usage
+              Advanced Usage
             </div>
           </div>
           <div class="md-footer__button md-icon">
@@ -586,10 +593,10 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.sections", "toc.integrate"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "assets/javascripts/workers/search.e99e714c.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "toc.integrate"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.e99e714c.min.js", "version": null}</script>
     
     
-      <script src="assets/javascripts/bundle.bc35569b.min.js"></script>
+      <script src="../../assets/javascripts/bundle.bc35569b.min.js"></script>
       
     
   </body>
