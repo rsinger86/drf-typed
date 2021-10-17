@@ -5,7 +5,7 @@
 [![Package version](https://badge.fury.io/py/drf-typed-views.svg)](https://pypi.python.org/pypi/drf-typed-views)
 [![Python versions](https://img.shields.io/pypi/status/drf-typed-views.svg)](https://img.shields.io/pypi/status/drf-typed-views.svg/)
 
-This project extends [Django Rest Framework](https://www.django-rest-framework.org/) to allow use of Python's type annotations for automatically validating/casting view parameters and augmenting serializers with typed attributes and annotation-generated fields.
+This project extends [Django REST Framework](https://www.django-rest-framework.org/) to allow use of Python's type annotations for automatically validating/casting view parameters and augmenting serializers with typed attributes and annotation-generated fields.
 
 Deriving automatic behavior from type annotations has become increasingly popular with the FastAPI and Django Ninja frameworks. The goal of this project is to provide these benefits to the DRF ecosystem.
 

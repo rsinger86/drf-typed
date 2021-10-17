@@ -39,8 +39,12 @@ class SerializerTests(APITestCase):
         movie = MovieSerializer(data={"release_date": "2013-01-29T12:34:56.000000Z"})
 
         movie.is_valid(raise_exception=True)
-        self.assertEqual(movie.release_date, datetime(2013, 1, 29, 12, 34, 56, tzinfo=UTC))
-        self.assertTrue(isinstance(movie.fields["release_date"], serializers.DateTimeField))
+        self.assertEqual(
+            movie.release_date, datetime(2013, 1, 29, 12, 34, 56, tzinfo=UTC)
+        )
+        self.assertTrue(
+            isinstance(movie.fields["release_date"], serializers.DateTimeField)
+        )
 
     def test_add_float_field_from_type_hint(self):
         class MovieSerializer(TSerializer):
@@ -122,5 +126,6 @@ class SerializerTests(APITestCase):
         self.assertTrue(isinstance(movie.fields["genre"], serializers.ChoiceField))
 
         self.assertEqual(
-            movie.fields["genre"].choices, OrderedDict([("comedy", "comedy"), ("drama", "drama")])
+            movie.fields["genre"].choices,
+            OrderedDict([("comedy", "comedy"), ("drama", "drama")]),
         )

@@ -38,5 +38,6 @@ nav:
       - Pydantic/Marshmallow: views/third_party_schemas.md
       - Request Elements: views/request_elements.md
       - Supported Types: views/supported_types.md
-
-  # - Serializers:
+  - Serializers:
+      - Typed Serializers: serializers/typed_serializers.md
+      - Type-to-Field Refernce: serializers/type_to_field_ref.md

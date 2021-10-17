@@ -1,6 +1,6 @@
-# Views
+# Typed Views
 
-## How It Works: Simple Usage
+## Simple Usage
 
 For many cases, you can rely on implicit behavior for how different parts of the request (URL path variables, query parameters, body) map to the parameters of a view function/method.
 

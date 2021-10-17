@@ -17,10 +17,14 @@ class TSerializerMetaClass(serializers.SerializerMetaclass):
                 type_hint = attr_name_to_type_hint[attr_name]
 
                 default_value = (
-                    getattr(newclass, attr_name) if hasattr(newclass, attr_name) else empty
+                    getattr(newclass, attr_name)
+                    if hasattr(newclass, attr_name)
+                    else empty
                 )
 
-                declared_fields[attr_name] = field_factory.construct(type_hint, default_value)
+                declared_fields[attr_name] = field_factory.construct(
+                    type_hint, default_value
+                )
 
                 if hasattr(newclass, attr_name):
                     delattr(newclass, attr_name)
@@ -34,7 +38,9 @@ class TSerializerAttrFieldsMixin(object):
             raise AttributeError(f"{name} does not exist.")
 
         if not hasattr(self, "_validated_data"):
-            msg = "You must call `.is_valid()` before accessing de-serialized attributes."
+            msg = (
+                "You must call `.is_valid()` before accessing de-serialized attributes."
+            )
             raise AssertionError(msg)
 
         validated_data: dict = self.validated_data
