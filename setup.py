@@ -13,15 +13,12 @@ classifiers = [
     # Pick your license as you wish (should match "license" above)
     "Development Status :: 4 - Beta",
     "License :: OSI Approved :: MIT License",
-    "Programming Language :: Python :: 3.3",
-    "Programming Language :: Python :: 3.4",
-    "Programming Language :: Python :: 3.5",
     "Programming Language :: Python :: 3.6",
 ]
 setup(
     name="drf-typed",
-    version="0.3.0",
-    description="Use type annotations for automatic request validation in Django REST Framework",
+    version="0.1.0",
+    description="Use type annotations for request validation and serializer fields in Django REST Framework",
     author="Robert Singer",
     author_email="robertgsinger@gmail.com",
     packages=find_packages(exclude=["test_project*"]),
