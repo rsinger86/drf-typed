@@ -1,4 +1,4 @@
-# Django Lifecycle Hooks
+# Django REST - Typed
 
 [![Package version](https://badge.fury.io/py/drf-typed.svg)](https://pypi.python.org/pypi/drf-typed)
 [![Python versions](https://img.shields.io/pypi/status/drf-typed.svg)](https://img.shields.io/pypi/status/drf-typed.svg/)
