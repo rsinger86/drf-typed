@@ -30,11 +30,11 @@ classifiers = [
 ]
 setup(
     name="drf-typed",
-    version="0.1.2",
+    version="0.1.3",
     description="Use type annotations for request validation and serializer fields in Django REST Framework",
     author="Robert Singer",
     author_email="robertgsinger@gmail.com",
-    packages=["rest_typed", "rest_framework-stubs"],
+    packages=find_packages(exclude=["test_project*"]) + ["rest_framework-stubs"],
     package_data={"rest_framework-stubs": find_stub_files("rest_framework-stubs")},
     url="https://github.com/rsinger86/drf-typed",
     license="MIT",
