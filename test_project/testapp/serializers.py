@@ -1,3 +1,5 @@
+from datetime import date
+from typing import List
 from rest_framework import serializers
 from test_project.testapp.models import Movie
 from rest_framework.serializers import ModelSerializer
@@ -15,6 +17,11 @@ class BookingSerializer(TSerializer):
     start_date = serializers.DateField()
     first_name: str
     last_name: str
+
+
+class MovieSerializer(TSerializer):
+    release_date: date
+    cast: List[str]
 
 
 booking = BookingSerializer(

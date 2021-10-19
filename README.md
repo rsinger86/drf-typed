@@ -21,6 +21,68 @@ Main benefits:
 
 **Source Code**: <a href="https://github.com/rsinger86/drf-typed/" target="_blank">https://github.com/rsinger86/drf-typed</a>
 
+## Views Example
+
+```python
+from rest_typed.views import typed_api_view
+
+"""
+GET /users/registered/?registered_on=2019-03-03&staff=yes
+"""
+
+@typed_api_view(["GET"])
+def get_users(registered_on: date = None, staff: bool = None):
+    print(registered_on, is_staff)
+    # date(2019, 3, 3) True
+    data = query_orm(registered_on, is_staff)
+    return Response(data)
+```
+
+## Serializers Example
+
+You can use type annotations to generate basic serializer fields automatically.
+
+```python
+from datetime import date
+from rest_typed.serializers import TSerializer
+
+
+class MovieSerializer(TSerializer):
+    title: str          # same as: CharField(required=True, allow_null=False)
+    release_date: date  # same as: DateField(required=True, allow_null=False)
+    description = None  # same as: DateField(default=None)
+
+movie = MovieSerializer(data={
+  "title": "The Last Duel",
+  "release_date": "2021-10-15",
+})
+
+movie.is_valid(raise_exception=True)
+
+print(movie.validated_data)
+"""
+  {
+    "title": "The Last Duel",
+    "release_date": date(2021, 10, 15),
+    "description": None
+  }
+"""
+
+# Or access attributes directly:
+"""
+  print(movie.title) # The Last Duel
+  print(movie.release_date) # date(2021, 10, 15)
+"""
+```
+
+The IDE can help you understand and enforce types:
+
+![Type Annotation](docs/images/attribute-str-type-hint.jpg)
+
+And it can auto-complete attributes:
+
+![Type Annotation](docs/images/attribute-date-auto-complete.jpg)
+
 ---
 
 # Changelog

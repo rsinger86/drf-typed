@@ -38,5 +38,7 @@ nav:
       - Request Elements: views/request_elements.md
       - Supported Types: views/supported_types.md
   - Serializers:
-      - Typed Serializers: serializers/typed_serializers.md
-      - Type-to-Field Refernce: serializers/type_to_field_ref.md
+      - Auto-Generated Fields: serializers/typed_serializers.md
+      - Typed/Direct Atrribute Access: serializers/attribute_access.md
+      - IDE Integration: serializers/ide_integration.md
+      - Type-to-Field Reference: serializers/type_to_field_ref.md
