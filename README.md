@@ -40,8 +40,6 @@ def get_users(registered_on: date = None, staff: bool = None):
 
 ## Serializers Example
 
-You can use type annotations to generate basic serializer fields automatically.
-
 ```python
 from datetime import date
 from rest_typed.serializers import TSerializer
@@ -75,11 +73,9 @@ print(movie.validated_data)
 """
 ```
 
-The IDE can help you understand and enforce types:
+The IDE can help you understand types and auto-complete attributes:
 
 ![Type Annotation](docs/images/attribute-str-type-hint.jpg)
-
-And it can auto-complete attributes:
 
 ![Type Annotation](docs/images/attribute-date-auto-complete.jpg)
 
