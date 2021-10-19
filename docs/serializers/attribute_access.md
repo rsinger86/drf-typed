@@ -32,8 +32,8 @@ Just like with standard REST Framework serializers, if you attempt to access val
 
 Now that we're accessing class instance attributes, rather than dictionary keys in `.validated_data`, the IDE can remind us of the types:
 
-![IDE](/images/ide-integration-3.png)
+![IDE](../images/ide-integration-3.png)
 
 It can also help us catch more errors:
 
-![IDE](/images/ide-integration-4.png)
+![IDE](../images/ide-integration-4.png)
