@@ -14,7 +14,7 @@
     
     
       
-        <title>Type-to-Field Reference - Django REST - Typed</title>
+        <title>Typed/Direct Atrribute Access - Django REST - Typed</title>
       
     
     
@@ -65,7 +65,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#type-to-field-reference" class="md-skip">
+        <a href="#typeddirect-atrribute-access" class="md-skip">
           Skip to content
         </a>
       
@@ -97,7 +97,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Type-to-Field Reference
+              Typed/Direct Atrribute Access
             
           </span>
         </div>
@@ -375,11 +375,21 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../attribute_access/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         Typed/Direct Atrribute Access
       </a>
+      
     </li>
   
 
@@ -403,21 +413,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../type_to_field_ref/" class="md-nav__link">
         Type-to-Field Reference
       </a>
-      
     </li>
   
 
@@ -441,63 +441,42 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/rsinger86/drf-typed/edit/master/docs/serializers/type_to_field_ref.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/rsinger86/drf-typed/edit/master/docs/serializers/attribute_access.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
                 
-                <h1 id="type-to-field-reference">Type-to-Field Reference<a class="headerlink" href="#type-to-field-reference" title="Permanent link">&para;</a></h1>
-<p>Below is a complete mapping of how native type annotations can be used as shorthand to generate Django REST Framework's serializer fields.</p>
-<table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Field</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>bool</td>
-<td>serializers.BooleanField</td>
-</tr>
-<tr>
-<td>date</td>
-<td>serializers.DateField</td>
-</tr>
-<tr>
-<td>datetime</td>
-<td>serializers.DateTimeField</td>
-</tr>
-<tr>
-<td>float</td>
-<td>serializers.FloatField</td>
-</tr>
-<tr>
-<td>int</td>
-<td>serializers.IntegerField</td>
-</tr>
-<tr>
-<td>str</td>
-<td>serializers.CharField</td>
-</tr>
-<tr>
-<td>time</td>
-<td>serializers.TimeField</td>
-</tr>
-<tr>
-<td>timedelta</td>
-<td>serializers.DurationField</td>
-</tr>
-<tr>
-<td>UUID</td>
-<td>serializers.UUIDField</td>
-</tr>
-<tr>
-<td>Enum</td>
-<td>serializers.ChoiceField</td>
-</tr>
-</tbody>
-</table>
+                <h1 id="typeddirect-atrribute-access">Typed/Direct Atrribute Access<a class="headerlink" href="#typeddirect-atrribute-access" title="Permanent link">&para;</a></h1>
+<p>When using <code>TSerializer</code> or <code>TModelSerializer</code> you also have direct access to validated field values after calling <code>is_valid()</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
+<span class="kn">from</span> <span class="nn">rest_typed.serializers</span> <span class="kn">import</span> <span class="n">TSerializer</span>
+
+<span class="k">class</span> <span class="nc">Genre</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="n">comedy</span> <span class="o">=</span> <span class="s2">&quot;comedy&quot;</span>
+    <span class="n">drama</span> <span class="o">=</span> <span class="s2">&quot;drama&quot;</span>
+
+
+<span class="k">class</span> <span class="nc">MovieSerializer</span><span class="p">(</span><span class="n">TSerializer</span><span class="p">):</span>
+    <span class="n">release_date</span><span class="p">:</span> <span class="n">date</span>
+    <span class="n">genre</span><span class="p">:</span> <span class="n">Genre</span>
+    <span class="n">cast</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+
+<span class="n">movie</span> <span class="o">=</span> <span class="n">MovieSerializer</span><span class="p">({</span>
+    <span class="s1">&#39;release_date&#39;</span><span class="p">:</span> <span class="s1">&#39;2021-10-10&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;genre&#39;</span><span class="p">:</span> <span class="s1">&#39;drama&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;cast&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Steve Martin&#39;</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="n">movie</span><span class="o">.</span><span class="n">is_valid</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">movie</span><span class="o">.</span><span class="n">cast</span><span class="p">)</span>
+<span class="c1"># [&#39;Steve Martin&#39;]</span>
+</code></pre></div>
+<p>Just like with standard REST Framework serializers, if you attempt to access validated fields before calling <code>is_valid()</code>, an exception will be raised.</p>
+<p>Now that we're accessing class instance attributes, rather than dictionary keys in <code>.validated_data</code>, the IDE can remind us of the types:</p>
+<p><img alt="IDE" src="/images/ide-integration-3.png" /></p>
+<p>It can also help us catch more errors:</p>
+<p><img alt="IDE" src="/images/ide-integration-4.png" /></p>
                 
               
               
@@ -517,7 +496,7 @@
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
         
-        <a href="../ide_integration/" class="md-footer__link md-footer__link--prev" aria-label="Previous: IDE Integration" rel="prev">
+        <a href="../typed_serializers/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Auto-Generated Fields" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -526,11 +505,26 @@
               <span class="md-footer__direction">
                 Previous
               </span>
-              IDE Integration
+              Auto-Generated Fields
             </div>
           </div>
         </a>
       
+      
+        
+        <a href="../ide_integration/" class="md-footer__link md-footer__link--next" aria-label="Next: IDE Integration" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              IDE Integration
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
       
     </nav>
   

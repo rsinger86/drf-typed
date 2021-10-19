@@ -14,7 +14,7 @@
     
     
       
-        <title>Type-to-Field Reference - Django REST - Typed</title>
+        <title>IDE Integration - Django REST - Typed</title>
       
     
     
@@ -65,7 +65,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#type-to-field-reference" class="md-skip">
+        <a href="#ide-integration" class="md-skip">
           Skip to content
         </a>
       
@@ -97,7 +97,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Type-to-Field Reference
+              IDE Integration
             
           </span>
         </div>
@@ -389,20 +389,6 @@
               
   
   
-  
-    <li class="md-nav__item">
-      <a href="../ide_integration/" class="md-nav__link">
-        IDE Integration
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
     
   
   
@@ -415,9 +401,23 @@
       
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Type-to-Field Reference
+        IDE Integration
       </a>
       
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../type_to_field_ref/" class="md-nav__link">
+        Type-to-Field Reference
+      </a>
     </li>
   
 
@@ -441,63 +441,17 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/rsinger86/drf-typed/edit/master/docs/serializers/type_to_field_ref.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/rsinger86/drf-typed/edit/master/docs/serializers/ide_integration.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
                 
-                <h1 id="type-to-field-reference">Type-to-Field Reference<a class="headerlink" href="#type-to-field-reference" title="Permanent link">&para;</a></h1>
-<p>Below is a complete mapping of how native type annotations can be used as shorthand to generate Django REST Framework's serializer fields.</p>
-<table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Field</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>bool</td>
-<td>serializers.BooleanField</td>
-</tr>
-<tr>
-<td>date</td>
-<td>serializers.DateField</td>
-</tr>
-<tr>
-<td>datetime</td>
-<td>serializers.DateTimeField</td>
-</tr>
-<tr>
-<td>float</td>
-<td>serializers.FloatField</td>
-</tr>
-<tr>
-<td>int</td>
-<td>serializers.IntegerField</td>
-</tr>
-<tr>
-<td>str</td>
-<td>serializers.CharField</td>
-</tr>
-<tr>
-<td>time</td>
-<td>serializers.TimeField</td>
-</tr>
-<tr>
-<td>timedelta</td>
-<td>serializers.DurationField</td>
-</tr>
-<tr>
-<td>UUID</td>
-<td>serializers.UUIDField</td>
-</tr>
-<tr>
-<td>Enum</td>
-<td>serializers.ChoiceField</td>
-</tr>
-</tbody>
-</table>
+                <h1 id="ide-integration">IDE Integration<a class="headerlink" href="#ide-integration" title="Permanent link">&para;</a></h1>
+<p>Classes are used to represent serializer fields, which can confuse IDEs into assuming that field values should be instances of those classes, rather than the value type that the class is responsible for validating and deserializing.</p>
+<p>The project includes a set of type stubs copied from <a href="https://github.com/typeddjango/django-stubs">typeddjango/django-stubs</a> (credit due to them for excellent work) and altered to indicate deserialized field types and address the problem stated above.</p>
+<p><img alt="IDE_1" src="/images/ide-integration-1.png" /></p>
+<p>This allows your IDE to know that <code>start_date</code> is of type <code>datetime.date</code>, even though a type annotation was not used.</p>
+<p><img alt="IDE_2" src="/images/ide-integration-2.png" /></p>
                 
               
               
@@ -517,7 +471,7 @@
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
         
-        <a href="../ide_integration/" class="md-footer__link md-footer__link--prev" aria-label="Previous: IDE Integration" rel="prev">
+        <a href="../attribute_access/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Typed/Direct Atrribute Access" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -526,11 +480,26 @@
               <span class="md-footer__direction">
                 Previous
               </span>
-              IDE Integration
+              Typed/Direct Atrribute Access
             </div>
           </div>
         </a>
       
+      
+        
+        <a href="../type_to_field_ref/" class="md-footer__link md-footer__link--next" aria-label="Next: Type-to-Field Reference" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Type-to-Field Reference
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
       
     </nav>
   

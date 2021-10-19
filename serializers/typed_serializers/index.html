@@ -14,7 +14,7 @@
     
     
       
-        <title>Typed Serializers - Django REST - Typed</title>
+        <title>Auto-Generated Fields - Django REST - Typed</title>
       
     
     
@@ -65,7 +65,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#typed-serializers" class="md-skip">
+        <a href="#auto-generated-serializer-fields" class="md-skip">
           Skip to content
         </a>
       
@@ -97,7 +97,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Typed Serializers
+              Auto-Generated Fields
             
           </span>
         </div>
@@ -373,12 +373,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Typed Serializers
+          Auto-Generated Fields
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Typed Serializers
+        Auto-Generated Fields
       </a>
       
         
@@ -396,42 +396,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#auto-generated-serializer-fields" class="md-nav__link">
-    Auto-Generated Serializer Fields
-  </a>
-  
-    <nav class="md-nav" aria-label="Auto-Generated Serializer Fields">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
   <a href="#simple-example" class="md-nav__link">
     Simple Example
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#enum-lists-example" class="md-nav__link">
     Enum &amp; Lists Example
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#typeddirect-atrribute-access" class="md-nav__link">
-    Typed/Direct Atrribute Access
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#ide-integration" class="md-nav__link">
-    IDE Integration
   </a>
   
 </li>
@@ -451,8 +424,36 @@
   
   
     <li class="md-nav__item">
+      <a href="../attribute_access/" class="md-nav__link">
+        Typed/Direct Atrribute Access
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ide_integration/" class="md-nav__link">
+        IDE Integration
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../type_to_field_ref/" class="md-nav__link">
-        Type-to-Field Refernce
+        Type-to-Field Reference
       </a>
     </li>
   
@@ -482,18 +483,17 @@
                   </a>
                 
                 
-                <h1 id="typed-serializers">Typed Serializers<a class="headerlink" href="#typed-serializers" title="Permanent link">&para;</a></h1>
+                <h1 id="auto-generated-serializer-fields">Auto-Generated Serializer Fields<a class="headerlink" href="#auto-generated-serializer-fields" title="Permanent link">&para;</a></h1>
 <p>This package provides the following classes:</p>
 <ul>
 <li><code>rest_typed.serializers.TSerializer</code></li>
 <li><code>rest_typed.serializers.TModelSerializer</code></li>
 </ul>
 <p>They are drop-in replacements for Django REST Framework's <code>serializers.Serializer</code> and <code>serializers.ModelSerializer</code> classes.</p>
-<h2 id="auto-generated-serializer-fields">Auto-Generated Serializer Fields<a class="headerlink" href="#auto-generated-serializer-fields" title="Permanent link">&para;</a></h2>
 <p>You can use type annotations as shorthand for declaring serializer fields, similar to how the popular library <a href="https://pydantic-docs.helpmanual.io/">Pydantic</a> enforces type hints at runtime for data validation.</p>
 <p>DRF's <a href="https://www.django-rest-framework.org/api-guide/fields/#core-arguments">core field arguments</a> of <code>required</code>, <code>default</code> and <code>allow_null</code> map cleanly to Python's attribute type hints.</p>
 <p>If you only need to specify those qualities, in addition to the type, you can use annotations instead of field declarations:</p>
-<h3 id="simple-example">Simple Example<a class="headerlink" href="#simple-example" title="Permanent link">&para;</a></h3>
+<h2 id="simple-example">Simple Example<a class="headerlink" href="#simple-example" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
 <span class="kn">from</span> <span class="nn">rest_typed.serializers</span> <span class="kn">import</span> <span class="n">TSerializer</span>
 
@@ -513,7 +513,7 @@
 <span class="sd">&quot;&quot;&quot;</span>
 </code></pre></div>
 <p>This approach works well for simple cases, but when you need more complex validation, such as enforcing value ranges or character length, it's best to use standard DRF fields.</p>
-<h3 id="enum-lists-example">Enum &amp; Lists Example<a class="headerlink" href="#enum-lists-example" title="Permanent link">&para;</a></h3>
+<h2 id="enum-lists-example">Enum &amp; Lists Example<a class="headerlink" href="#enum-lists-example" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
 <span class="kn">from</span> <span class="nn">rest_typed.serializers</span> <span class="kn">import</span> <span class="n">TSerializer</span>
 
@@ -536,33 +536,6 @@
 <span class="sd">    cast = serializers.ListField(child=serializers.CharField())</span>
 <span class="sd">&quot;&quot;&quot;</span>
 </code></pre></div>
-<h2 id="typeddirect-atrribute-access">Typed/Direct Atrribute Access<a class="headerlink" href="#typeddirect-atrribute-access" title="Permanent link">&para;</a></h2>
-<p>When using <code>TSerializer</code> or <code>TModelSerializer</code> you also have direct access to validated field values after calling <code>is_valid()</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
-<span class="kn">from</span> <span class="nn">rest_typed.serializers</span> <span class="kn">import</span> <span class="n">TSerializer</span>
-
-<span class="k">class</span> <span class="nc">Genre</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
-    <span class="n">comedy</span> <span class="o">=</span> <span class="s2">&quot;comedy&quot;</span>
-    <span class="n">drama</span> <span class="o">=</span> <span class="s2">&quot;drama&quot;</span>
-
-
-<span class="k">class</span> <span class="nc">MovieSerializer</span><span class="p">(</span><span class="n">TSerializer</span><span class="p">):</span>
-    <span class="n">release_date</span><span class="p">:</span> <span class="n">date</span>
-    <span class="n">genre</span><span class="p">:</span> <span class="n">Genre</span>
-    <span class="n">cast</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
-
-<span class="n">movie</span> <span class="o">=</span> <span class="n">MovieSerializer</span><span class="p">({</span><span class="s1">&#39;release_date&#39;</span><span class="p">:</span> <span class="s1">&#39;2021-10-10&#39;</span><span class="p">,</span> <span class="s1">&#39;genre&#39;</span><span class="p">:</span> <span class="s1">&#39;drama&#39;</span><span class="p">,</span> <span class="s1">&#39;cast&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Steve Martin&#39;</span><span class="p">]})</span>
-<span class="n">movie</span><span class="o">.</span><span class="n">is_valid</span><span class="p">()</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">movie</span><span class="o">.</span><span class="n">cast</span><span class="p">)</span>
-<span class="c1"># [&#39;Steve Martin&#39;]</span>
-</code></pre></div>
-<h2 id="ide-integration">IDE Integration<a class="headerlink" href="#ide-integration" title="Permanent link">&para;</a></h2>
-<p>Classes are used to represent serializer fields, which can confuse IDEs into assuming that field values should be instances of those classes, rather than the value type that the class is responsible for validating and deserializing.</p>
-<p>The project includes a set of type stubs copied from <a href="https://github.com/typeddjango/django-stubs">typeddjango/django-stubs</a> (credit due to them for excellent work) and altered to indicate deserialized field types and address the problem stated above.</p>
-<p><img alt="IDE_1" src="/images/ide-integration-1.png" /></p>
-<p>This allows your IDE to know that <code>start_date</code> is of type <code>datetime.date</code>, even though a type annotation was not used.</p>
-<p><img alt="IDE_2" src="/images/ide-integration-2.png" /></p>
                 
               
               
@@ -598,13 +571,13 @@
       
       
         
-        <a href="../type_to_field_ref/" class="md-footer__link md-footer__link--next" aria-label="Next: Type-to-Field Refernce" rel="next">
+        <a href="../attribute_access/" class="md-footer__link md-footer__link--next" aria-label="Next: Typed/Direct Atrribute Access" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              Type-to-Field Refernce
+              Typed/Direct Atrribute Access
             </div>
           </div>
           <div class="md-footer__button md-icon">
