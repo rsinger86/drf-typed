@@ -81,6 +81,11 @@ The IDE can help you understand types and auto-complete attributes:
 
 # Changelog
 
+## 0.1.1 (October 2021)
+
+- Docs improvements
+- Updates setup.py to include stubs package
+
 ## 0.1.0 (October 2021)
 
 - First release

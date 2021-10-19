@@ -17,17 +17,3 @@ class BookingSerializer(TSerializer):
     start_date = serializers.DateField()
     first_name: str
     last_name: str
-
-
-class MovieSerializer(TSerializer):
-    release_date: date
-    cast: List[str]
-
-
-booking = BookingSerializer(
-    {"start_date": "2021-10-01", "first_name": "Fred", "last_name": "Rogers"}
-)
-
-booking.is_valid()
-
-booking.start_date
