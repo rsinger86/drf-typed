@@ -67,10 +67,8 @@ print(movie.validated_data)
 """
 
 # Or access attributes directly:
-"""
-  print(movie.title) # The Last Duel
-  print(movie.release_date) # date(2021, 10, 15)
-"""
+print(movie.title) # The Last Duel
+print(movie.release_date) # date(2021, 10, 15)
 ```
 
 The IDE can help you understand types and auto-complete attributes:
