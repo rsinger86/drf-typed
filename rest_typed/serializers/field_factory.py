@@ -1,6 +1,7 @@
 from datetime import date, datetime, time, timedelta
 from enum import Enum
-from typing import Any, List, Type, Union
+from inspect import isclass
+from typing import Any, List, Literal, Type, Union
 from uuid import UUID
 
 from rest_framework import serializers
@@ -19,8 +20,7 @@ class ParsedType(object):
     @property
     def is_optional(self) -> bool:
         """
-        If the type is a union, and one is None,
-        then it's nullable
+        If the type is a union, and one is None, then it's nullable
         """
         if get_origin(self._hint) is Union:
             for union_hint in get_args(self._hint):
@@ -30,40 +30,48 @@ class ParsedType(object):
         return False
 
     @property
+    def hint(self) -> Any:
+        if self.is_optional:
+            for union_hint in get_args(self._hint):
+                if union_hint is not type(None):
+                    return union_hint
+
+        return self._hint
+
+    @property
     def is_list(self) -> bool:
         """
         Type is `list` or `List[T]`
         Or it's a nullable list: `Optional[list]` or `Optional[List[T]]`
         """
-        if self._hint is list or get_origin(self._hint) is list:
-            return True
-        elif get_origin(self._hint) is Union:
-            for union_hint in get_args(self._hint):
-                if union_hint is list or get_origin(union_hint) is list:
-                    return True
+        return self.hint is list or get_origin(self.hint) is list
 
-        return False
+    @property
+    def is_literal(self) -> bool:
+        return get_origin(self.hint) is Literal
+
+    @property
+    def is_enum(self) -> bool:
+        return isclass(self.hint) and issubclass(self.hint, Enum)
 
     @property
     def enum_values(self) -> List[Any]:
-        if not self.type is Enum:
+        if self.resolved_type is Enum:
+            return [_.value for _ in self.hint]
+        elif self.resolved_type is Literal:
+            return [v for v in get_args(self.hint)]
+        else:
             return []
 
-        return [_.value for _ in self._hint]
-
     @property
-    def type(self) -> Any:
-        t = self._hint
+    def resolved_type(self) -> Any:
+        t = self.hint
 
-        if self.is_optional:
-            for union_hint in get_args(self._hint):
-                if union_hint is not type(None):
-                    t = get_origin(union_hint) or union_hint
-                    break
-        elif self.is_list:
+        if self.is_list:
             t = list
-
-        if issubclass(t, Enum):
+        elif self.is_literal:
+            t = Literal
+        elif self.is_enum:
             t = Enum
 
         return t
@@ -100,6 +108,7 @@ FIELD_MAPPING = {
     timedelta: serializers.DurationField,
     UUID: serializers.UUIDField,
     Enum: serializers.ChoiceField,
+    Literal: serializers.ChoiceField,
 }
 
 
@@ -112,8 +121,8 @@ def construct(hint: Any, default_value: Any = empty):
     else:
         kwargs["required"] = True
 
-    if parsed.type in FIELD_MAPPING:
-        FieldClass = FIELD_MAPPING[parsed.type]
+    if parsed.resolved_type in FIELD_MAPPING:
+        FieldClass = FIELD_MAPPING[parsed.resolved_type]
 
         if FieldClass is serializers.ChoiceField:
             kwargs["choices"] = parsed.enum_values

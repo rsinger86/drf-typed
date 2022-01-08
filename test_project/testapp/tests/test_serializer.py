@@ -1,7 +1,7 @@
 from collections import OrderedDict
 from datetime import date, datetime, time, timedelta
 from enum import Enum
-from typing import Optional
+from typing import Literal, Optional
 from uuid import UUID
 
 from pytz import UTC
@@ -110,7 +110,7 @@ class SerializerTests(APITestCase):
         self.assertEqual(str(movie.id), "de305d54-75b4-431b-adb2-eb6b9e546013")
         self.assertTrue(isinstance(movie.fields["id"], serializers.UUIDField))
 
-    def test_add_choice_field_from_type_hint(self):
+    def test_add_choice_field_from_enum_type_hint(self):
         class Genre(Enum):
             comedy = "comedy"
             drama = "drama"
@@ -119,7 +119,6 @@ class SerializerTests(APITestCase):
             genre: Genre
 
         movie = MovieSerializer(data={"genre": "comedy"})
-
         movie.is_valid(raise_exception=True)
         self.assertEqual(movie.genre, "comedy")
 
@@ -128,4 +127,50 @@ class SerializerTests(APITestCase):
         self.assertEqual(
             movie.fields["genre"].choices,
             OrderedDict([("comedy", "comedy"), ("drama", "drama")]),
+        )
+
+    def test_add_choice_field_from_literal_type_hint(self):
+        class PetSerializer(TSerializer):
+            species: Literal["cat", "dog"]
+
+        pet = PetSerializer(data={"species": "cat"})
+
+        pet.is_valid(raise_exception=True)
+        self.assertEqual(pet.species, "cat")
+
+        self.assertTrue(isinstance(pet.fields["species"], serializers.ChoiceField))
+
+        self.assertEqual(
+            pet.fields["species"].choices,
+            OrderedDict([("cat", "cat"), ("dog", "dog")]),
+        )
+
+        self.assertFalse(
+            pet.fields["species"].allow_null,
+        )
+
+    def test_add_choice_field_from_optional_literal_type_hint(self):
+        class PetSerializer(TSerializer):
+            species: Optional[Literal["cat", "dog"]]
+
+        # Check literal value allowed
+        pet = PetSerializer(data={"species": "cat"})
+        pet.is_valid(raise_exception=True)
+        self.assertEqual(pet.species, "cat")
+
+        # Check None is allowed
+        pet = PetSerializer(data={"species": None})
+        pet.is_valid(raise_exception=True)
+        self.assertEqual(pet.species, None)
+
+        # Check field constructed correctly
+        self.assertTrue(isinstance(pet.fields["species"], serializers.ChoiceField))
+
+        self.assertEqual(
+            pet.fields["species"].choices,
+            OrderedDict([("cat", "cat"), ("dog", "dog")]),
+        )
+
+        self.assertTrue(
+            pet.fields["species"].allow_null,
         )
