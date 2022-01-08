@@ -35,12 +35,6 @@ def parse_complex_type(annotation) -> Tuple[bool, Optional[str]]:
         if inspect.isclass(annotation) and issubclass(annotation, PydanticBaseModel):
             return True, "pydantic"
 
-    if "typesystem" in enabled:
-        from typesystem import Schema as TypeSystemSchema
-
-        if inspect.isclass(annotation) and issubclass(annotation, TypeSystemSchema):
-            return True, "typesystem"
-
     if "marshmallow" in enabled:
         from marshmallow import Schema as MarshmallowSchema
 
@@ -57,7 +51,10 @@ def get_nested_value(dic: dict, path: str, fallback=None) -> Any:
 
 
 def get_default_value(param: inspect.Parameter) -> Any:
-    if not is_default_used_to_pass_settings(param) and param.default is not inspect.Parameter.empty:
+    if (
+        not is_default_used_to_pass_settings(param)
+        and param.default is not inspect.Parameter.empty
+    ):
         return param.default
     return empty
 

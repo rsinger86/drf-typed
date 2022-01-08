@@ -1,6 +1,8 @@
-from typing import Any, Callable, Dict, List, Type, TypeVar
+from typing import Any, Callable, Type, TypeVar
 
 from typing_extensions import ParamSpec
+
+from .parsed_type import ParsedType
 
 P = ParamSpec("P")
 T = TypeVar("T")
