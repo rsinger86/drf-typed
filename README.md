@@ -79,7 +79,22 @@ The IDE can help you understand types and auto-complete attributes:
 
 ---
 
+# Install
+
+Install using:
+
+```
+pip install drf-typed
+
+```
+
+Python 3.8 or higher is required.
+
 # Changelog
+
+## 0.2.0 (January 2022)
+
+- Fixes setup.py for finding packages
 
 ## 0.1.3 (October 2021)
 

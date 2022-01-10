@@ -26,11 +26,13 @@ classifiers = [
     # Pick your license as you wish (should match "license" above)
     "Development Status :: 4 - Beta",
     "License :: OSI Approved :: MIT License",
-    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
 ]
 setup(
     name="drf-typed",
-    version="0.1.3",
+    version="0.2.0",
     description="Use type annotations for request validation and serializer fields in Django REST Framework",
     author="Robert Singer",
     author_email="robertgsinger@gmail.com",

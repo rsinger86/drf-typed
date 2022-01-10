@@ -31,10 +31,11 @@ markdown_extensions:
 
 nav:
   - Introduction: index.md
+  - Install: install.md
   - Views:
       - Basic Usage: views/simple_usage.md
       - Advanced Usage: views/advanced_usage.md
-      - Pydantic/Marshmallow: views/third_party_schemas.md
+      - Pydantic: views/third_party_schemas.md
       - Request Elements: views/request_elements.md
       - Supported Types: views/supported_types.md
   - Serializers:

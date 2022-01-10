@@ -62,3 +62,25 @@ class MovieSerializer(serializers.Serializer):
     cast = serializers.ListField(child=serializers.CharField())
 """
 ```
+
+## typing.Literal Example
+
+```python
+from datetime import date
+from rest_typed.serializers import TSerializer
+
+
+class MovieSerializer(TSerializer):
+    release_date: date
+    genre: Literal["comedy", "drama"]
+    cast: List[str]
+
+"""
+Same as:
+
+class MovieSerializer(serializers.Serializer):
+    release_date = serializers.DateField()
+    genre = serializers.ChoiceField(choices=["comedy", "drama"])
+    cast = serializers.ListField(child=serializers.CharField())
+"""
+```

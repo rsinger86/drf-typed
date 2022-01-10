@@ -159,35 +159,71 @@ def search_straws(type: Straws = None):
     # ORM logic here...
 ```
 
-## marshmallow.Schema
+## typing.Literal
 
-You can annotate view parameters with [Marshmallow schemas](https://marshmallow.readthedocs.io/en/stable/) to validate request data and pass an instance of the schema to the view.
+As an alternative to `Enum`, `typing.Literal` can validate that the value of the input is one of a limited set of choices. Think of this as mapping to a Django REST [`ChoiceField`](https://www.django-rest-framework.org/api-guide/fields/#choicefield).
+
+An example:
 
 ```python
-from marshmallow import Schema, fields
-from rest_typed import typed_api_view, Query
+from typing import Literal
 
-class ArtistSchema(Schema):
-    name = fields.Str()
+@typed_api_view(["GET"])
+def search_straws(type: Literal["paper", "plastic"] = None):
+    # ORM logic here...
+```
 
-class AlbumSchema(Schema):
-    title = fields.Str()
-    release_date = fields.Date()
-    artist = fields.Nested(ArtistSchema())
+## Django REST Framework Serializers
+
+You can annotate view parameters with Django Rest serializers to validate request data and pass an instance of the serializer to the view.
+
+```python
+from rest_framework import serializers
+from rest_typed import typed_api_view
+
+class CommentSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    content = serializers.CharField(max_length=200)
+    created = serializers.DateTimeField(read_only=True)
 
 """
     POST
     {
-        "title": "Michael Scott's Greatest Hits",
-        "release_date": "2019-03-03",
-        "artist": {
-            "name": "Michael Scott"
-        }
+        "email": "mscott@paperco.com",
+        "content": "great job team!",
     }
 """
 @typed_api_view(["POST"])
-def create_album(album: AlbumSchema):
-    # now have an album instance (assuming ValidationError wasn't raised)
+def create_comment(comment: CommentSerializer):
+    # is_valid() automatically called.
+    # ready to access comment.validated_data
+```
+
+## DRF Typed - TSerializers
+
+You can annotate view parameters with DRF Typed's TSerializers to validate request data and pass an instance of the serializer to the view.
+
+```python
+from rest_typed.serializers import TSerializer
+from rest_typed import typed_api_view
+from datetime import datetime
+
+class CommentSerializer(TSerializer):
+    email: str
+    content: str
+    created: datetime = serializers.DateTimeField(read_only=True)
+
+"""
+    POST
+    {
+        "email": "mscott@paperco.com",
+        "content": "great job team!",
+    }
+"""
+@typed_api_view(["POST"])
+def create_comment(comment: CommentSerializer):
+    # is_valid() automatically called.
+    # ready to access comment.email and comment.content
 ```
 
 ## pydantic.BaseModel
