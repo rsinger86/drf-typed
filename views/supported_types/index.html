@@ -10,7 +10,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.2">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.2">
     
     
       
@@ -225,6 +225,21 @@
 
   
   
+  
+    <li class="md-nav__item">
+      <a href="../../install/" class="md-nav__link">
+        Install
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
     
   
   
@@ -234,18 +249,18 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
       
       
       
       
-        <label class="md-nav__link" for="__nav_2">
+        <label class="md-nav__link" for="__nav_3">
           Views
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="Views" data-md-level="1">
-        <label class="md-nav__title" for="__nav_2">
+        <label class="md-nav__title" for="__nav_3">
           <span class="md-nav__icon md-icon"></span>
           Views
         </label>
@@ -286,7 +301,7 @@
   
     <li class="md-nav__item">
       <a href="../third_party_schemas/" class="md-nav__link">
-        Pydantic/Marshmallow
+        Pydantic
       </a>
     </li>
   
@@ -430,8 +445,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#marshmallowschema" class="md-nav__link">
-    marshmallow.Schema
+  <a href="#typingliteral" class="md-nav__link">
+    typing.Literal
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#django-rest-framework-serializers" class="md-nav__link">
+    Django REST Framework Serializers
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#drf-typed-tserializers" class="md-nav__link">
+    DRF Typed - TSerializers
   </a>
   
 </li>
@@ -471,18 +500,18 @@
     <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
       
       
       
       
-        <label class="md-nav__link" for="__nav_3">
+        <label class="md-nav__link" for="__nav_4">
           Serializers
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="Serializers" data-md-level="1">
-        <label class="md-nav__title" for="__nav_3">
+        <label class="md-nav__title" for="__nav_4">
           <span class="md-nav__icon md-icon"></span>
           Serializers
         </label>
@@ -693,32 +722,59 @@
 <span class="k">def</span> <span class="nf">search_straws</span><span class="p">(</span><span class="nb">type</span><span class="p">:</span> <span class="n">Straws</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
     <span class="c1"># ORM logic here...</span>
 </code></pre></div>
-<h2 id="marshmallowschema">marshmallow.Schema<a class="headerlink" href="#marshmallowschema" title="Permanent link">&para;</a></h2>
-<p>You can annotate view parameters with <a href="https://marshmallow.readthedocs.io/en/stable/">Marshmallow schemas</a> to validate request data and pass an instance of the schema to the view.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">marshmallow</span> <span class="kn">import</span> <span class="n">Schema</span><span class="p">,</span> <span class="n">fields</span>
-<span class="kn">from</span> <span class="nn">rest_typed</span> <span class="kn">import</span> <span class="n">typed_api_view</span><span class="p">,</span> <span class="n">Query</span>
+<h2 id="typingliteral">typing.Literal<a class="headerlink" href="#typingliteral" title="Permanent link">&para;</a></h2>
+<p>As an alternative to <code>Enum</code>, <code>typing.Literal</code> can validate that the value of the input is one of a limited set of choices. Think of this as mapping to a Django REST <a href="https://www.django-rest-framework.org/api-guide/fields/#choicefield"><code>ChoiceField</code></a>.</p>
+<p>An example:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span>
 
-<span class="k">class</span> <span class="nc">ArtistSchema</span><span class="p">(</span><span class="n">Schema</span><span class="p">):</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Str</span><span class="p">()</span>
+<span class="nd">@typed_api_view</span><span class="p">([</span><span class="s2">&quot;GET&quot;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">search_straws</span><span class="p">(</span><span class="nb">type</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;paper&quot;</span><span class="p">,</span> <span class="s2">&quot;plastic&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="c1"># ORM logic here...</span>
+</code></pre></div>
+<h2 id="django-rest-framework-serializers">Django REST Framework Serializers<a class="headerlink" href="#django-rest-framework-serializers" title="Permanent link">&para;</a></h2>
+<p>You can annotate view parameters with Django Rest serializers to validate request data and pass an instance of the serializer to the view.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">rest_framework</span> <span class="kn">import</span> <span class="n">serializers</span>
+<span class="kn">from</span> <span class="nn">rest_typed</span> <span class="kn">import</span> <span class="n">typed_api_view</span>
 
-<span class="k">class</span> <span class="nc">AlbumSchema</span><span class="p">(</span><span class="n">Schema</span><span class="p">):</span>
-    <span class="n">title</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Str</span><span class="p">()</span>
-    <span class="n">release_date</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Date</span><span class="p">()</span>
-    <span class="n">artist</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Nested</span><span class="p">(</span><span class="n">ArtistSchema</span><span class="p">())</span>
+<span class="k">class</span> <span class="nc">CommentSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">Serializer</span><span class="p">):</span>
+    <span class="n">email</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">EmailField</span><span class="p">()</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+    <span class="n">created</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">read_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    POST</span>
 <span class="sd">    {</span>
-<span class="sd">        &quot;title&quot;: &quot;Michael Scott&#39;s Greatest Hits&quot;,</span>
-<span class="sd">        &quot;release_date&quot;: &quot;2019-03-03&quot;,</span>
-<span class="sd">        &quot;artist&quot;: {</span>
-<span class="sd">            &quot;name&quot;: &quot;Michael Scott&quot;</span>
-<span class="sd">        }</span>
+<span class="sd">        &quot;email&quot;: &quot;mscott@paperco.com&quot;,</span>
+<span class="sd">        &quot;content&quot;: &quot;great job team!&quot;,</span>
 <span class="sd">    }</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="nd">@typed_api_view</span><span class="p">([</span><span class="s2">&quot;POST&quot;</span><span class="p">])</span>
-<span class="k">def</span> <span class="nf">create_album</span><span class="p">(</span><span class="n">album</span><span class="p">:</span> <span class="n">AlbumSchema</span><span class="p">):</span>
-    <span class="c1"># now have an album instance (assuming ValidationError wasn&#39;t raised)</span>
+<span class="k">def</span> <span class="nf">create_comment</span><span class="p">(</span><span class="n">comment</span><span class="p">:</span> <span class="n">CommentSerializer</span><span class="p">):</span>
+    <span class="c1"># is_valid() automatically called.</span>
+    <span class="c1"># ready to access comment.validated_data</span>
+</code></pre></div>
+<h2 id="drf-typed-tserializers">DRF Typed - TSerializers<a class="headerlink" href="#drf-typed-tserializers" title="Permanent link">&para;</a></h2>
+<p>You can annotate view parameters with DRF Typed's TSerializers to validate request data and pass an instance of the serializer to the view.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">rest_typed.serializers</span> <span class="kn">import</span> <span class="n">TSerializer</span>
+<span class="kn">from</span> <span class="nn">rest_typed</span> <span class="kn">import</span> <span class="n">typed_api_view</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="k">class</span> <span class="nc">CommentSerializer</span><span class="p">(</span><span class="n">TSerializer</span><span class="p">):</span>
+    <span class="n">email</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">content</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">created</span><span class="p">:</span> <span class="n">datetime</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">read_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    POST</span>
+<span class="sd">    {</span>
+<span class="sd">        &quot;email&quot;: &quot;mscott@paperco.com&quot;,</span>
+<span class="sd">        &quot;content&quot;: &quot;great job team!&quot;,</span>
+<span class="sd">    }</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="nd">@typed_api_view</span><span class="p">([</span><span class="s2">&quot;POST&quot;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">create_comment</span><span class="p">(</span><span class="n">comment</span><span class="p">:</span> <span class="n">CommentSerializer</span><span class="p">):</span>
+    <span class="c1"># is_valid() automatically called.</span>
+    <span class="c1"># ready to access comment.email and comment.content</span>
 </code></pre></div>
 <h2 id="pydanticbasemodel">pydantic.BaseModel<a class="headerlink" href="#pydanticbasemodel" title="Permanent link">&para;</a></h2>
 <p>You can annotate view parameters with <a href="https://pydantic-docs.helpmanual.io/">Pydantic models</a> to validate request data and pass an instance of the model to the view.</p>
