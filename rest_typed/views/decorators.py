@@ -7,7 +7,7 @@ from rest_framework.request import Request
 from rest_framework.views import APIView
 from rest_typed.views.utils import find_request
 
-from .view_param_factory import ViewParamFactory
+from .param_factory import ParamFactory
 
 
 def wraps_drf(view):
@@ -48,7 +48,7 @@ def transform_view_params(
     errors: Dict[str, Any] = {}
 
     for param in typed_params:
-        p = ViewParamFactory.make(param, request, path_args)
+        p = ParamFactory.make(param, request, path_args)
         value, error = p.validate_or_error()
 
         if error:

@@ -20,7 +20,7 @@ from rest_typed.views.utils import (
 )
 
 
-class ViewParamFactory(object):
+class ParamFactory(object):
     @classmethod
     def make(cls, param: inspect.Parameter, request: Request, path_args: dict):
         explicit_settings = get_explicit_param_settings(param)

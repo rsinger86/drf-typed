@@ -98,3 +98,8 @@ def get_logs(
 @typed_api_view(["GET"])
 def test_view(c: str = Header(source="connection")):
     return Response({"v": c})
+
+
+@typed_api_view(["GET"])
+def test_view_for_optional_list_param(ids: Optional[List[int]] = None):
+    return Response({"v": ids})

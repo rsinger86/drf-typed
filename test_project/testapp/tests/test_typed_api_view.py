@@ -203,3 +203,13 @@ class TypedAPIViewTests(APITestCase):
             response.json(),
             {"band_member": {"name": ["This field is required."]}},
         )
+
+    def test_optional_list_param(self):
+        url = reverse("test-optional-list-param")
+        r1 = self.client.get(url, {"ids": "12"}, format="json")
+
+        self.assertEqual(r1.data, {"v": [12]})
+
+        r2 = self.client.get(url, {}, format="json")
+
+        self.assertEqual(r2.data, {"v": None})
