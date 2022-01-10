@@ -15,7 +15,7 @@ Main benefits:
 - Type annotations can replace repetitive view validation/sanitization code.
 - Simple serializers can have their fields auto-generated from annotations
 - Validated serializer data can be accessed from attributes, with their types known to the IDE
-- [Pydantic](https://pydantic-docs.helpmanual.io/) models and [Marshmallow](https://marshmallow.readthedocs.io) schemas are compatible types for view parameters. Annotate your POST/PUT functions with them to automatically validate incoming request bodies.
+- [Pydantic](https://pydantic-docs.helpmanual.io/) models are compatible types for view parameters. Annotate your POST/PUT functions with them to automatically validate incoming request bodies.
 
 ## Views Example
 

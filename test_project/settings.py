@@ -145,4 +145,4 @@ LOGGING = {
     },
 }
 
-DRF_TYPED_VIEWS = {"schema_packages": ["pydantic", "marshmallow", "typesystem"]}
+DRF_TYPED_VIEWS = {"schema_packages": ["pydantic"]}

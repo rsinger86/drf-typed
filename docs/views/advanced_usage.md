@@ -136,20 +136,20 @@ def search_documens(request: Request, q: str = None):
 
 ## Interdependent Query Parameter Validation
 
-Often, it's useful to validate a combination of query parameters - for instance, a `start_date` shouldn't come after an `end_date`. You can use complex schema object (Pydantic or Marshmallow) for this scenario. In the example below, `Query(source="*")` is instructing an instance of `SearchParamsSchema` to be populated/validated using all of the query parameters together: `request.query_params.dict()`.
+Often, it's useful to validate a combination of query parameters - for instance, a `start_date` shouldn't come after an `end_date`. You can use complex schema object (Pydantic) for this scenario. In the example below, `Query(source="*")` is instructing an instance of `SearchParamsSchema` to be populated/validated using all of the query parameters together: `request.query_params.dict()`.
 
 ```python
-from marshmallow import Schema, fields, validates_schema, ValidationError
+from pydantic import BaseModel
 from rest_typed import typed_api_view
 
-class SearchParamsSchema(Schema):
+class SearchParamsSchema(BaseModel):
     start_date = fields.Date()
     end_date = fields.Date()
 
-    @validates_schema
-    def validate_numbers(self, data, **kwargs):
-        if data["start_date"] >= data["end_date"]:
-            raise ValidationError("end_date must come after start_date")
+    @root_validator
+    def validate_dates(cls, values):
+        if values["start_date"] >= values["end_date"]:
+            raise ValueError("end_date must come after start_date")
 
 @typed_api_view(["GET"])
 def search_documens(search_params: SearchParamsSchema = Query(source="*")):

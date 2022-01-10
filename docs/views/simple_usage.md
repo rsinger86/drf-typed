@@ -7,7 +7,7 @@ For many cases, you can rely on implicit behavior for how different parts of the
 The value of a view parameter will come from...
 
 - the URL path if the path variable and the view argument have the same name, _or_:
-- the request body if the view argument is annotated using a class from a supported library for complex object validation (Pydantic, MarshMallow), _or_:
+- the request body if the view argument is annotated using a class from a supported library for complex object validation (Pydantic), _or_:
 - a query parameter with the same name
 
 Unless a default value is given, the parameter is **required** and a [`ValidationError`](https://www.django-rest-framework.org/api-guide/exceptions/#validationerror) will be raised if not set.
