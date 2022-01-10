@@ -1,17 +1,17 @@
 from enum import Enum
 from inspect import isclass
-from typing import Any, List, Literal, Union
+from typing import Any, List, Literal, Type, Union
 
+from django.conf import settings
+from rest_framework.serializers import empty
 from typing_extensions import get_args, get_origin
 
 
 class ParsedType(object):
     _hint: Any
-    _default: Any
 
-    def __init__(self, hint: Any, default: Any):
+    def __init__(self, hint: Any):
         self._hint = hint
-        self._default = default
 
     @property
     def is_optional(self) -> bool:
@@ -69,3 +69,10 @@ class ParsedType(object):
             t = Enum
 
         return t
+
+    @property
+    def inner_list_type(self) -> Union["ParsedType", Type[empty]]:
+        if self.resolved_type is list and get_origin(self.resolved_hint) is list:
+            return ParsedType(get_args(self.resolved_hint)[0])
+
+        return empty

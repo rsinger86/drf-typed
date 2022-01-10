@@ -48,7 +48,9 @@ class TypedAPIViewTests(APITestCase):
                 "website": "http://bloomgerg.com",
                 "identity": UUID("a1e77325-8429-480e-a990-8764f33db2d8"),
                 "ip": "162.254.168.185",
-                "timestamp": datetime.datetime(2013, 7, 16, 19, 23, tzinfo=datetime.timezone.utc),
+                "timestamp": datetime.datetime(
+                    2013, 7, 16, 19, 23, tzinfo=datetime.timezone.utc
+                ),
                 "start_date": datetime.date(2013, 7, 16),
                 "start_time": datetime.time(10, 0),
                 "duration": datetime.timedelta(12, 143),
@@ -89,7 +91,9 @@ class TypedAPIViewTests(APITestCase):
                 "price": ["This field is required."],
                 "is_pretty": ["Must be a valid boolean."],
                 "email": ["Enter a valid email address."],
-                "upper_alpha_string": ["This value does not match the required pattern."],
+                "upper_alpha_string": [
+                    "This value does not match the required pattern."
+                ],
                 "identifier": [
                     'Enter a valid "slug" consisting of letters, numbers, underscores or hyphens.'
                 ],
@@ -131,7 +135,9 @@ class TypedAPIViewTests(APITestCase):
             {
                 "id": 12,
                 "name": "Robert",
-                "signup_ts": datetime.datetime(2013, 7, 16, 19, 23, tzinfo=datetime.timezone.utc),
+                "signup_ts": datetime.datetime(
+                    2013, 7, 16, 19, 23, tzinfo=datetime.timezone.utc
+                ),
                 "friends": [3],
             },
         )
@@ -195,5 +201,5 @@ class TypedAPIViewTests(APITestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(
             response.json(),
-            {"band_member": {"name": ["Missing data for required field."]}},
+            {"band_member": {"name": ["This field is required."]}},
         )

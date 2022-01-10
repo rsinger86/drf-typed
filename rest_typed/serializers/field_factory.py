@@ -1,6 +1,6 @@
 from datetime import date, datetime, time, timedelta
 from enum import Enum
-from typing import Any, Literal
+from typing import Any
 from uuid import UUID
 
 from rest_framework import serializers
@@ -19,12 +19,11 @@ FIELD_MAPPING = {
     timedelta: serializers.DurationField,
     UUID: serializers.UUIDField,
     Enum: serializers.ChoiceField,
-    Literal: serializers.ChoiceField,
 }
 
 
 def construct(hint: Any, default_value: Any = empty):
-    parsed = ParsedType(hint, default_value)
+    parsed = ParsedType(hint)
     kwargs = {"allow_null": parsed.is_optional}
 
     if default_value is not empty:

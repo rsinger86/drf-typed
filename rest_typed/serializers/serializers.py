@@ -50,6 +50,15 @@ class TSerializerAttrFieldsMixin(object):
         else:
             raise AttributeError(f"{name} does not exist.")
 
+    def asdict(self) -> dict:
+        if not hasattr(self, "_validated_data"):
+            msg = (
+                "You must call `.is_valid()` before accessing de-serialized attributes."
+            )
+            raise AssertionError(msg)
+
+        return self.validated_data
+
 
 class TModelSerializer(
     TSerializerAttrFieldsMixin,

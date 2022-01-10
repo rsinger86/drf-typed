@@ -1,17 +1,17 @@
 from datetime import date, datetime, time, timedelta
 from decimal import Decimal
-from typing import Any
+from enum import Enum
+from typing import Any, Union
+from rest_framework.request import Request
 
 from rest_framework import serializers
+from rest_framework.fields import empty
+from rest_typed import ParsedType
+from rest_typed.utils import inspect_complex_type
 from rest_typed.views.param_settings import ParamSettings
-from rest_typed.views.utils import (
-    parse_complex_type,
-    parse_enum_annotation,
-    parse_list_annotation,
-)
 from rest_typed.views.validators import (
     DefaultValidator,
-    MarshMallowValidator,
+    DrfValidator,
     PydanticValidator,
 )
 
@@ -79,43 +79,45 @@ class ValidatorFactory(object):
             return serializers.IPAddressField(default=settings.default, protocol="both")
 
     @classmethod
-    def make_list_validator(cls, item_type: Any, settings: ParamSettings):
+    def make_list_validator(
+        cls,
+        inner_type: Union[ParsedType, empty],
+        settings: ParamSettings,
+        request: Request,
+    ):
         options = {
             "min_length": settings.min_length,
             "max_length": settings.max_length,
             "allow_empty": settings.allow_empty,
             "default": settings.default,
         }
-        if item_type is not Any:
+        if inner_type is not empty:
             options["child"] = ValidatorFactory.make(
-                item_type, settings.child or ParamSettings()
+                inner_type, settings.child or ParamSettings(), request
             )
 
         return serializers.ListField(**options)
 
     @classmethod
-    def make(cls, annotation: Any, settings: ParamSettings):
-        if annotation is bool:
+    def make(cls, parsed: ParsedType, settings: ParamSettings, request: Request) -> Any:
+
+        if parsed.resolved_type is bool:
             return serializers.BooleanField(default=settings.default)
-
-        if annotation is str:
+        elif parsed.resolved_type is str:
             return cls.make_string_validator(settings)
-
-        if annotation is int:
+        elif parsed.resolved_type is int:
             return serializers.IntegerField(
                 default=settings.default,
                 max_value=settings.max_value,
                 min_value=settings.min_value,
             )
-
-        if annotation is float:
+        elif parsed.resolved_type is float:
             return serializers.FloatField(
                 default=settings.default,
                 max_value=settings.max_value,
                 min_value=settings.min_value,
             )
-
-        if annotation is Decimal:
+        elif parsed.resolved_type is Decimal:
             return serializers.DecimalField(
                 default=settings.default,
                 max_digits=settings.max_digits,
@@ -126,43 +128,32 @@ class ValidatorFactory(object):
                 max_value=settings.max_value,
                 min_value=settings.min_value,
             )
-
-        if annotation is datetime:
+        elif parsed.resolved_type is datetime:
             return serializers.DateTimeField(
                 default=settings.default,
                 input_formats=settings.input_formats,
                 default_timezone=settings.default_timezone,
             )
-
-        if annotation is date:
+        elif parsed.resolved_type is date:
             return serializers.DateField(
                 default=settings.default, input_formats=settings.input_formats
             )
-
-        if annotation is time:
+        elif parsed.resolved_type is time:
             return serializers.TimeField(
                 default=settings.default, input_formats=settings.input_formats
             )
-
-        if annotation is timedelta:
+        elif parsed.resolved_type is timedelta:
             return serializers.DurationField(default=settings.default)
+        elif parsed.resolved_type is Enum:
+            return serializers.ChoiceField(choices=parsed.enum_values)
+        elif parsed.resolved_type is list:
+            return cls.make_list_validator(parsed.inner_list_type, settings, request)
+        else:
+            complex_type = inspect_complex_type(parsed.resolved_type)
 
-        is_enum_type, values = parse_enum_annotation(annotation)
-
-        if is_enum_type:
-            return serializers.ChoiceField(choices=values)
-
-        is_list_type, item_type = parse_list_annotation(annotation)
-
-        if is_list_type:
-            return cls.make_list_validator(item_type, settings)
-
-        is_complex_type, package = parse_complex_type(annotation)
-
-        if is_complex_type and package == "pydantic":
-            return PydanticValidator(annotation)
-
-        if is_complex_type and package == "marshmallow":
-            return MarshMallowValidator(annotation)
+            if complex_type == "pydantic":
+                return PydanticValidator(parsed.resolved_type)
+            elif complex_type == "drf":
+                return DrfValidator(parsed.resolved_type, request)
 
         return DefaultValidator(default=settings.default)

@@ -12,27 +12,29 @@ class ParamsTests(APITestCase):
         return MagicMock(data=data, query_params=query_params)
 
     def test_body_raw_value_should_be_request_data_when_not_set(self):
-        body_param = BodyParam(MagicMock(), self.fake_request(data={"a": "b"}), ParamSettings())
+        body_param = BodyParam(
+            MagicMock(), self.fake_request(data={"a": "b"}), ParamSettings()
+        )
 
-        self.assertEqual(body_param._get_raw_value(), {"a": "b"})
+        self.assertEqual(body_param.get_raw_value(), {"a": "b"})
 
     def test_body_raw_value_should_be_request_data_when_wildcard_set(self):
         body_param = BodyParam(
             MagicMock(), self.fake_request(data={"a": "b"}), ParamSettings(source="*")
         )
 
-        self.assertEqual(body_param._get_raw_value(), {"a": "b"})
+        self.assertEqual(body_param.get_raw_value(), {"a": "b"})
 
     def test_body_raw_value_should_be_empty_when_src_specified_but_not_found(self):
         body_param = BodyParam(
             MagicMock(), self.fake_request(data={"a": "b"}), ParamSettings(source="c")
         )
 
-        self.assertEqual(body_param._get_raw_value(), empty)
+        self.assertEqual(body_param.get_raw_value(), empty)
 
     def test_body_raw_value_should_be_found_when_src_specified(self):
         body_param = BodyParam(
             MagicMock(), self.fake_request(data={"a": "b"}), ParamSettings(source="a")
         )
 
-        self.assertEqual(body_param._get_raw_value(), "b")
+        self.assertEqual(body_param.get_raw_value(), "b")
