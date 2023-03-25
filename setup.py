@@ -32,7 +32,7 @@ classifiers = [
 ]
 setup(
     name="drf-typed",
-    version="0.2.0",
+    version="0.3.0",
     description="Use type annotations for request validation and serializer fields in Django REST Framework",
     author="Robert Singer",
     author_email="robertgsinger@gmail.com",
