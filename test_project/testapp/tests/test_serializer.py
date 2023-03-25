@@ -1,7 +1,7 @@
 from collections import OrderedDict
 from datetime import date, datetime, time, timedelta
 from enum import Enum
-from typing import Literal, Optional
+from typing import List, Literal, Optional
 from uuid import UUID
 
 from pytz import UTC
@@ -174,3 +174,49 @@ class SerializerTests(APITestCase):
         self.assertTrue(
             pet.fields["species"].allow_null,
         )
+
+    def test_nested_serializer_from_type_hint_validation(self):
+        class AuthorSerializer(TSerializer):
+            name = serializers.CharField()
+
+        class BookSerializer(TSerializer):
+            author: AuthorSerializer
+
+        book = BookSerializer(data={"author": {"name": "JK Rowling"}})
+        book.is_valid(raise_exception=True)
+        self.assertEqual(book.author.name, "JK Rowling")
+
+    def test_many_nested_serializer_from_type_hint(self):
+        class ChapterSerializer(TSerializer):
+            title = serializers.CharField()
+            word_count = serializers.IntegerField()
+
+        class BookSerializer(TSerializer):
+            chapters: List[ChapterSerializer]
+
+        book = BookSerializer(data={"chapters": [{"title": "Intro", "word_count": 13}]})
+        book.is_valid(raise_exception=True)
+
+        self.assertEqual(len(book.chapters), 1)
+
+        for chapter in book.chapters:
+            self.assertEqual(chapter.title, "Intro")
+            self.assertEqual(chapter.word_count, 13)
+
+    def test_nested_serializer_from_type_hint_construction(self):
+        class AuthorSerializer(TSerializer):
+            name: str
+
+        class BookSerializer(TSerializer):
+            author: Optional[AuthorSerializer] = None
+
+        book = BookSerializer(data={"author": {"name": "JK Rowling"}})
+        self.assertEqual(book.fields["author"].allow_null, True)
+        self.assertEqual(book.fields["author"].default, None)
+
+        class BookSerializer(TSerializer):
+            author: AuthorSerializer = None
+
+        book = BookSerializer(data={"author": {"name": "JK Rowling"}})
+        self.assertEqual(book.fields["author"].allow_null, False)
+        self.assertEqual(book.fields["author"].default, None)

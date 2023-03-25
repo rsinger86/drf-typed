@@ -92,6 +92,10 @@ Python 3.8 or higher is required.
 
 # Changelog
 
+## 0.3.0 (March 2023)
+
+- Adds support for nested serializers from type annotations.
+
 ## 0.2.0 (January 2022)
 
 - Fixes setup.py for finding packages

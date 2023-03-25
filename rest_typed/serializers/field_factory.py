@@ -1,5 +1,6 @@
 from datetime import date, datetime, time, timedelta
 from enum import Enum
+import inspect
 from typing import Any
 from uuid import UUID
 
@@ -38,3 +39,14 @@ def construct(hint: Any, default_value: Any = empty):
             kwargs["choices"] = parsed.enum_values
 
         return FieldClass(**kwargs)
+    elif inspect.isclass(parsed.resolved_type) and issubclass(
+        parsed.resolved_type, serializers.Serializer
+    ):
+        return parsed.resolved_type(**kwargs)
+    elif parsed.hint_is_list and parsed.inner_list_type:
+        list_item_type = parsed.inner_list_type.resolved_type
+
+        if inspect.isclass(list_item_type) and issubclass(
+            list_item_type, serializers.Serializer
+        ):
+            return list_item_type(many=True)

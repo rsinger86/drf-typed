@@ -7,3 +7,4 @@ dist/
 db.sqlite3
 site/
 drf_typed.egg-info/
+.venv

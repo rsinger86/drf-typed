@@ -63,6 +63,35 @@ class MovieSerializer(serializers.Serializer):
 """
 ```
 
+## Nested Serializer Example
+
+```python
+from datetime import date
+from rest_typed.serializers import TSerializer
+
+class ChapterSerializer(TSerializer):
+    title: str 
+    word_count: int
+
+
+class AuthorSerializer(TSerializer):
+    name: str
+
+
+class BookSerializer(TSerializer):
+    author: Author
+    chapters: List[Chapter]
+
+"""
+Same as:
+
+class BookSerializer(serializers.Serializer):
+    author = AuthorSerializer()
+    chapters = AuthorSerializer(many=True)
+"""
+```
+
+
 ## typing.Literal Example
 
 ```python

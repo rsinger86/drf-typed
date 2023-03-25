@@ -27,4 +27,6 @@ class Movie(models.Model):
     title = models.CharField(max_length=100)
     rating = models.FloatField(default=0)
 
-    genre = models.CharField(max_length=30, choices=(("comedy", "Comedy"), ("drama", "Drama")))
+    genre = models.CharField(
+        max_length=30, choices=(("comedy", "Comedy"), ("drama", "Drama"))
+    )
