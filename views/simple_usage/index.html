@@ -10,7 +10,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.2">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.2">
     
     
       
@@ -511,7 +511,7 @@
 <p>The value of a view parameter will come from...</p>
 <ul>
 <li>the URL path if the path variable and the view argument have the same name, <em>or</em>:</li>
-<li>the request body if the view argument is annotated using a class from a supported library for complex object validation (Pydantic, MarshMallow), <em>or</em>:</li>
+<li>the request body if the view argument is annotated using a class from a supported library for complex object validation (Pydantic), <em>or</em>:</li>
 <li>a query parameter with the same name</li>
 </ul>
 <p>Unless a default value is given, the parameter is <strong>required</strong> and a <a href="https://www.django-rest-framework.org/api-guide/exceptions/#validationerror"><code>ValidationError</code></a> will be raised if not set.</p>

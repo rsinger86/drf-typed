@@ -10,7 +10,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.2">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.2">
     
     
       
@@ -639,18 +639,18 @@
     <span class="c1"># ORM logic ...</span>
 </code></pre></div>
 <h2 id="interdependent-query-parameter-validation">Interdependent Query Parameter Validation<a class="headerlink" href="#interdependent-query-parameter-validation" title="Permanent link">&para;</a></h2>
-<p>Often, it's useful to validate a combination of query parameters - for instance, a <code>start_date</code> shouldn't come after an <code>end_date</code>. You can use complex schema object (Pydantic or Marshmallow) for this scenario. In the example below, <code>Query(source="*")</code> is instructing an instance of <code>SearchParamsSchema</code> to be populated/validated using all of the query parameters together: <code>request.query_params.dict()</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">marshmallow</span> <span class="kn">import</span> <span class="n">Schema</span><span class="p">,</span> <span class="n">fields</span><span class="p">,</span> <span class="n">validates_schema</span><span class="p">,</span> <span class="n">ValidationError</span>
+<p>Often, it's useful to validate a combination of query parameters - for instance, a <code>start_date</code> shouldn't come after an <code>end_date</code>. You can use complex schema object (Pydantic) for this scenario. In the example below, <code>Query(source="*")</code> is instructing an instance of <code>SearchParamsSchema</code> to be populated/validated using all of the query parameters together: <code>request.query_params.dict()</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span>
 <span class="kn">from</span> <span class="nn">rest_typed</span> <span class="kn">import</span> <span class="n">typed_api_view</span>
 
-<span class="k">class</span> <span class="nc">SearchParamsSchema</span><span class="p">(</span><span class="n">Schema</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">SearchParamsSchema</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
     <span class="n">start_date</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Date</span><span class="p">()</span>
     <span class="n">end_date</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Date</span><span class="p">()</span>
 
-    <span class="nd">@validates_schema</span>
-    <span class="k">def</span> <span class="nf">validate_numbers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;start_date&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;end_date&quot;</span><span class="p">]:</span>
-            <span class="k">raise</span> <span class="n">ValidationError</span><span class="p">(</span><span class="s2">&quot;end_date must come after start_date&quot;</span><span class="p">)</span>
+    <span class="nd">@root_validator</span>
+    <span class="k">def</span> <span class="nf">validate_dates</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">values</span><span class="p">[</span><span class="s2">&quot;start_date&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">values</span><span class="p">[</span><span class="s2">&quot;end_date&quot;</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;end_date must come after start_date&quot;</span><span class="p">)</span>
 
 <span class="nd">@typed_api_view</span><span class="p">([</span><span class="s2">&quot;GET&quot;</span><span class="p">])</span>
 <span class="k">def</span> <span class="nf">search_documens</span><span class="p">(</span><span class="n">search_params</span><span class="p">:</span> <span class="n">SearchParamsSchema</span> <span class="o">=</span> <span class="n">Query</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">)):</span>

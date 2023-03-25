@@ -10,7 +10,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.2">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.2">
     
     
       
@@ -425,6 +425,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#nested-serializer-example" class="md-nav__link">
+    Nested Serializer Example
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#typingliteral-example" class="md-nav__link">
     typing.Literal Example
   </a>
@@ -556,6 +563,31 @@
 <span class="sd">    release_date = serializers.DateField()</span>
 <span class="sd">    genre = serializers.ChoiceField(choices=[&quot;comedy&quot;, &quot;drama&quot;])</span>
 <span class="sd">    cast = serializers.ListField(child=serializers.CharField())</span>
+<span class="sd">&quot;&quot;&quot;</span>
+</code></pre></div>
+<h2 id="nested-serializer-example">Nested Serializer Example<a class="headerlink" href="#nested-serializer-example" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
+<span class="kn">from</span> <span class="nn">rest_typed.serializers</span> <span class="kn">import</span> <span class="n">TSerializer</span>
+
+<span class="k">class</span> <span class="nc">ChapterSerializer</span><span class="p">(</span><span class="n">TSerializer</span><span class="p">):</span>
+    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> 
+    <span class="n">word_count</span><span class="p">:</span> <span class="nb">int</span>
+
+
+<span class="k">class</span> <span class="nc">AuthorSerializer</span><span class="p">(</span><span class="n">TSerializer</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+
+
+<span class="k">class</span> <span class="nc">BookSerializer</span><span class="p">(</span><span class="n">TSerializer</span><span class="p">):</span>
+    <span class="n">author</span><span class="p">:</span> <span class="n">Author</span>
+    <span class="n">chapters</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Chapter</span><span class="p">]</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Same as:</span>
+
+<span class="sd">class BookSerializer(serializers.Serializer):</span>
+<span class="sd">    author = AuthorSerializer()</span>
+<span class="sd">    chapters = AuthorSerializer(many=True)</span>
 <span class="sd">&quot;&quot;&quot;</span>
 </code></pre></div>
 <h2 id="typingliteral-example">typing.Literal Example<a class="headerlink" href="#typingliteral-example" title="Permanent link">&para;</a></h2>

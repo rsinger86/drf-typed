@@ -10,7 +10,7 @@
       
       
       <link rel="icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.2">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.2">
     
     
       
@@ -515,7 +515,7 @@
 <li>Type annotations can replace repetitive view validation/sanitization code.</li>
 <li>Simple serializers can have their fields auto-generated from annotations</li>
 <li>Validated serializer data can be accessed from attributes, with their types known to the IDE</li>
-<li><a href="https://pydantic-docs.helpmanual.io/">Pydantic</a> models and <a href="https://marshmallow.readthedocs.io">Marshmallow</a> schemas are compatible types for view parameters. Annotate your POST/PUT functions with them to automatically validate incoming request bodies.</li>
+<li><a href="https://pydantic-docs.helpmanual.io/">Pydantic</a> models are compatible types for view parameters. Annotate your POST/PUT functions with them to automatically validate incoming request bodies.</li>
 </ul>
 <h2 id="views-example">Views Example<a class="headerlink" href="#views-example" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">rest_typed.views</span> <span class="kn">import</span> <span class="n">typed_api_view</span>
